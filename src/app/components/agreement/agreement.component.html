@@ -1,0 +1,154 @@
+<!-- agreement.component.html -->
+<div class="team-header">
+    <h1>Convenios</h1>
+    <p>Conoce al grupo de convenios</p>
+  </div>
+  <div class="agreements-container">
+  
+      <!-- === SECCIÓN BIENESTAR FÍSICO === -->
+      <section class="category-section">
+          <h2 class="category-title">Bienestar Físico</h2>
+          <div class="carousel" (mouseenter)="pauseAutoScroll(0)" (mouseleave)="startAutoScroll(0)">
+              <button class="carousel-button prev" (click)="scroll(0, 'prev')" aria-label="Anterior">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="carousel-viewport">
+                  <div #carouselTrack class="carousel-track" [style.--item-count]="bienestarFisico.length">
+                      <div class="carousel-item" *ngFor="let agreement of bienestarFisicoTrack" (click)="openAgreementModal(agreement)">
+                          <img [src]="agreement.logoUrl" [alt]="'Logo ' + agreement.name">
+                          <div class="info-popup">
+                              <h3 class="partner-name">{{ agreement.name }}</h3>
+                              <p class="discount">{{ agreement.shortDescription }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+               <button class="carousel-button next" (click)="scroll(0, 'next')" aria-label="Siguiente">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+          </div>
+      </section>
+  
+      <!-- === SECCIÓN BIENESTAR EDUCATIVO === -->
+      <section class="category-section">
+          <h2 class="category-title">Bienestar Educativo</h2>
+          <div class="carousel" (mouseenter)="pauseAutoScroll(1)" (mouseleave)="startAutoScroll(1)">
+              <button class="carousel-button prev" (click)="scroll(1, 'prev')" aria-label="Anterior">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="carousel-viewport">
+                  <div #carouselTrack class="carousel-track" [style.--item-count]="bienestarEducativo.length">
+                      <div class="carousel-item" *ngFor="let agreement of bienestarEducativoTrack" (click)="openAgreementModal(agreement)">
+                          <img [src]="agreement.logoUrl" [alt]="'Logo ' + agreement.name">
+                          <div class="info-popup">
+                              <h3 class="partner-name">{{ agreement.name }}</h3>
+                              <p class="discount">{{ agreement.shortDescription }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+               <button class="carousel-button next" (click)="scroll(1, 'next')" aria-label="Siguiente">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+          </div>
+      </section>
+  
+      <!-- === SECCIÓN BIENESTAR MENTAL === -->
+      <section class="category-section">
+          <h2 class="category-title">Bienestar Mental</h2>
+          <div class="carousel" (mouseenter)="pauseAutoScroll(2)" (mouseleave)="startAutoScroll(2)">
+              <button class="carousel-button prev" (click)="scroll(2, 'prev')" aria-label="Anterior">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="carousel-viewport">
+                  <div #carouselTrack class="carousel-track" [style.--item-count]="bienestarMental.length">
+                      <div class="carousel-item" *ngFor="let agreement of bienestarMentalTrack" (click)="openAgreementModal(agreement)">
+                          <img [src]="agreement.logoUrl" [alt]="'Logo ' + agreement.name">
+                          <div class="info-popup">
+                              <h3 class="partner-name">{{ agreement.name }}</h3>
+                              <p class="discount">{{ agreement.shortDescription }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+               <button class="carousel-button next" (click)="scroll(2, 'next')" aria-label="Siguiente">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+          </div>
+      </section>
+  
+      <!-- === SECCIÓN BIENESTAR FINANCIERO (SIN AUTO-SCROLL) === -->
+      <section class="category-section">
+          <h2 class="category-title">Bienestar Financiero</h2>
+          <div class="carousel">
+              <button class="carousel-button prev" (click)="scroll(3, 'prev')" aria-label="Anterior">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="carousel-viewport">
+                  <div #carouselTrack class="carousel-track" [style.--item-count]="bienestarFinanciero.length">
+                      <div class="carousel-item" *ngFor="let agreement of bienestarFinanciero" (click)="openAgreementModal(agreement)">
+                          <img [src]="agreement.logoUrl" [alt]="'Logo ' + agreement.name">
+                          <div class="info-popup">
+                              <h3 class="partner-name">{{ agreement.name }}</h3>
+                              <p class="discount">{{ agreement.shortDescription }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+               <button class="carousel-button next" (click)="scroll(3, 'next')" aria-label="Siguiente">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+          </div>
+      </section>
+      
+  </div>
+  
+  
+  <!-- ✨ INICIO DEL MODAL INFORMATIVO ✨ -->
+  <div class="modal-backdrop" *ngIf="isModalVisible">
+      <div class="modal-container" [class.is-closing]="isModalClosing">
+          <!-- Verifica que haya un convenio seleccionado antes de mostrar el contenido -->
+          <ng-container *ngIf="selectedAgreement">
+              <div class="modal-header">
+                  <h3 class="modal-title">
+                      <img [src]="selectedAgreement.logoUrl" [alt]="'Logo ' + selectedAgreement.name">
+                      <span>{{ selectedAgreement.name }}</span>
+                  </h3>
+                  <button type="button" class="close-button" (click)="closeModal()" aria-label="Cerrar" [class.is-closing]="isModalClosing">&times;</button>
+              </div>
+              <div class="modal-body">
+                  
+                  <div class="info-section">
+                      <h4>Detalles del Convenio</h4>
+                      <p>{{ selectedAgreement.details }}</p>
+                  </div>
+  
+                  <div class="info-section">
+                      <h4>Términos y Condiciones</h4>
+                      <p>{{ selectedAgreement.terms }}</p>
+                  </div>
+  
+                  <div class="info-section">
+                      <h4>¿Cómo usarlo?</h4>
+                      <p>{{ selectedAgreement.contact }}</p>
+                  </div>
+                <!-- ✨ SECCIÓN DE CONTACTO MOVIDA DENTRO DEL MODAL ✨ -->
+                <div class="info-section contact-info-modal">
+                    <h4>¿Necesitas Ayuda?</h4>
+                    <p>Para más información comunícate con el área de Cultura y Desarrollo.</p>
+                    <a href="https://signal.me/#p/+573001234567" target="_blank" rel="noopener noreferrer" class="contact-button-modal">
+                        <div class="button-icon">
+                            <img src="assets/images/signal.png" alt="Signal Icon" width="24" height="24">
+                          </div>
+                        Contactar por Signal
+                    </a>
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="close-btn-footer" (click)="closeModal()">Cerrar</button>
+              </div>
+          </ng-container>
+      </div>
+
+  </div>
+  

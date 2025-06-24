@@ -1,0 +1,230 @@
+:host {
+    display: block;
+}
+
+// --- Keyframes ---
+@keyframes starFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 8px rgba(255, 223, 71, 0.5));
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+        filter: drop-shadow(0 0 20px rgba(255, 223, 71, 0.9));
+    }
+}
+@keyframes twinkle {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+@keyframes modalFadeIn {
+    from { background-color: rgba(0,0,0,0); backdrop-filter: blur(0px); }
+    to { background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+}
+@keyframes modalImageZoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.stars-page-container {
+    width: 100%;
+    background-color: #f8f9fa;
+}
+
+/* --- ENCABEZADO DE LA PÁGINA --- */
+.stars-header {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #0d2a4c;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30, 58, 138, 0.7), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 170, 255, 0.5), transparent 50%);
+    color: white;
+}
+
+// Estrellas de fondo
+.stars-background, .stars-background::before, .stars-background::after, .stars-background-2, .stars-background-2::before, .stars-background-2::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 20%, #ffdf47, transparent), radial-gradient(2px 2px at 80% 10%, #ffd000, transparent),
+        radial-gradient(2px 2px at 50% 50%, #f9a602, transparent), radial-gradient(3px 3px at 30% 80%, #ffdf47, transparent),
+        radial-gradient(3px 3px at 90% 40%, #ffd000, transparent), radial-gradient(3px 3px at 10% 90%, #f9a602, transparent);
+    animation: twinkle 5s infinite;
+}
+.stars-background::before { background-image: radial-gradient(2px 2px at 40% 70%, #ffdf47, transparent), radial-gradient(2px 2px at 15% 45%, #ffd000, transparent), radial-gradient(3px 3px at 70% 90%, #f9a602, transparent); animation-delay: -1s; }
+.stars-background::after { background-image: radial-gradient(2px 2px at 5% 5%, #ffdf47, transparent), radial-gradient(3px 3px at 60% 30%, #ffd000, transparent), radial-gradient(2px 2px at 95% 65%, #f9a602, transparent); animation-delay: -2s; }
+.stars-background-2 { animation-delay: -3s; }
+.stars-background-2::before { background-image: radial-gradient(2px 2px at 33% 33%, #ffdf47, transparent), radial-gradient(2px 2px at 77% 66%, #ffd000, transparent); animation-delay: -4s; }
+.stars-background-2::after { background-image: radial-gradient(3px 3px at 88% 22%, #f9a602, transparent), radial-gradient(2px 2px at 22% 88%, #f9a602, transparent); animation-delay: -5s; }
+
+.header-logo {
+    width: 380px; 
+    height: auto;
+    margin-bottom: 20px;
+    animation: starFloat 4s infinite ease-in-out;
+    z-index: 1;
+}
+
+.header-text { z-index: 1; }
+.header-text h1 { font-size: 2.8rem; font-weight: 700; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.header-text p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; opacity: 0.9; }
+
+/* --- CONTENIDO PRINCIPAL --- */
+.stars-content { padding: 50px 40px; }
+.content-section { margin-bottom: 60px; }
+.content-section h2 { font-size: 2rem; font-weight: 700; color: #005A9C; text-align: center; margin-bottom: 30px; }
+
+/* Carrusel de Fotos */
+.photo-carousel {
+    position: relative;
+    padding: 0 50px;
+}
+.photo-viewport {
+    overflow-x: scroll; // Se usa scroll para el arrastre
+    cursor: grab;
+    scrollbar-width: none; // Oculta la barra de scroll
+    &::-webkit-scrollbar { display: none; }
+    
+    &.is-dragging {
+        cursor: grabbing;
+        scroll-behavior: auto; // Movimiento directo durante el arrastre
+    }
+}
+.photo-track {
+    display: flex;
+    gap: 15px;
+    
+    &.is-dragging {
+        pointer-events: none;
+        user-select: none;
+    }
+}
+.photo-gallery-item {
+    height: 250px;
+    flex-shrink: 0;
+    img {
+        width: auto;
+        height: 100%;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.03);
+        }
+    }
+}
+.carousel-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #005A9C;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    &:hover { transform: translateY(-50%) scale(1.1); }
+    &.prev { left: 0; }
+    &.next { right: 0; }
+}
+
+/* --- Grid de Videos --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.video-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    aspect-ratio: 16 / 9;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+}
+.video-thumbnail, .video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+}
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+.play-icon {
+    width: 60px;
+    height: 60px;
+    fill: white;
+    transition: transform 0.3s ease;
+}
+.video-card:hover .play-icon {
+    transform: scale(1.2);
+}
+.video-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    font-weight: 600;
+}
+.video-card.playing .video-thumbnail,
+.video-card.playing .video-overlay {
+    display: none;
+}
+
+/* --- Estilos para el Modal de la Galería --- */
+.image-modal-backdrop {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    z-index: 2000; display: flex; justify-content: center; align-items: center;
+    padding: 20px; box-sizing: border-box; cursor: pointer;
+    animation: modalFadeIn 0.3s ease;
+}
+.image-modal-content {
+    max-width: 90%; max-height: 90%;
+    animation: modalImageZoomIn 0.3s ease;
+    img {
+        width: auto; height: auto; max-width: 100%; max-height: 100%;
+        object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+}

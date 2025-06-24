@@ -1,0 +1,24 @@
+/* --- ENCABEZADO DE LA PÁGINA --- */
+.family-header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #f4f7fc, #e5f0ff);
+    border-radius: 0 0 20px 20px;
+}
+
+.family-header h1 {
+    color: #005A9C;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.family-header p {
+    color: #5a738e;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}

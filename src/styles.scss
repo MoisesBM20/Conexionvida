@@ -1,0 +1,17 @@
+/* src/styles.scss */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+// Otros estilos globales
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+// ...etc
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f9faff;
+  padding-top: 80px; /* Espacio para el navbar fijo */
+  
+}
+
+.main-content {
+  min-height: calc(100vh - 120px);
+}
+

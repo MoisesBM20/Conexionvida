@@ -1,0 +1,17 @@
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #e5f0ff9a;
+  color: #333;
+  font-size: 0.9rem;
+  height: 40px;
+  width: 100%; /* Cambiamos de fixed a sticky */
+  bottom: 0;        /* Mantiene el footer en la parte inferior */
+  margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+.footer-container p {
+  margin: 0;
+}

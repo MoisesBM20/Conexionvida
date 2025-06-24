@@ -1,0 +1,221 @@
+/* --- Variables de Color --- */
+:root {
+  --primary-blue: #005A9C;
+  --primary-blue-dark: rgb(0, 90, 156);
+  --background-light: #f7faff;
+  --border-color: #e8eaed;
+  --text-dark: rgb(0, 90, 156);
+  --text-light: #777;
+  --hover-shadow: 0 4px 16px rgba(0, 90, 156, 0.10);
+}
+
+/* --- Estilos Generales del Navbar --- */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background-color: rgba(255, 255, 255, 0.61);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  .logo { height: 84px; }
+}
+
+.search-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  padding: 10px 45px 10px 20px;
+  font-size: 1rem;
+  width: 320px;
+  background-color: #f1f3f4;
+  transition: all 0.3s ease;
+  &::placeholder { color: #5f6368; }
+  &:focus {
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+  }
+}
+
+.search-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+  transition: background-color 0.3s ease;
+  &:hover { background-color: var(--border-color); }
+}
+
+.navigation-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navigation-section li {
+  position: relative;
+}
+
+/* Padding para mejorar el hover del dropdown */
+.dropdown {
+  padding-bottom: 15px;
+  margin-bottom: -15px;
+}
+
+.navigation-section > ul > li > a {
+  text-decoration: rgb(0, 0, 0);
+  color: rgb(0, 90, 156);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding-bottom: 5px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  
+  &.active,
+  &:hover {
+    color: rgb(0, 90, 156);
+    border-bottom-color: var(--primary-blue);
+  }
+}
+        /* ---  MECANISMO DE LA LISTA DESPLEGABLE --- */
+
+        /* 1. El contenedor del elemento del menú debe tener posición relativa */
+        .dropdown {
+            position: relative;
+        }
+        
+        /* 2. El menú desplegable se posiciona de forma absoluta respecto a su padre */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            z-index: 1000;
+            margin-top: 10px;
+            min-width: 300px;
+            padding: 0.75rem;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(177, 177, 177, 0.3);
+
+            /* 3. Por defecto, el menú está oculto y movido para la animación */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        
+        /* 4. Al pasar el cursor sobre .dropdown, se muestra el .dropdown-menu */
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* Estilos para la flecha que gira */
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+
+        /* --- ALINEACIÓN DE ÍTEMS DENTRO DEL MENÚ (CON GRID) --- */
+        
+        .dropdown-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .dropdown-menu a {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f4f8;
+        }
+
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e9f2fc;
+            border-radius: 8px;
+        }
+
+        .item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #0d6efd;
+        }
+
+        .item-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #212529;
+            text-align: left;
+        }
+
+        .item-description {
+            font-size: 0.85rem;
+            color: #6c757d;
+            text-align: left;
+        }

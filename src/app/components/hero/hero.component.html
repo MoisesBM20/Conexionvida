@@ -1,0 +1,76 @@
+<!-- Contenedor principal con fondo animado -->
+<div class="hero-container">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+
+  <!-- El contenido ahora está posicionado en la parte superior -->
+  <div class="content-wrapper">
+    <!-- Contenedor del layout de dos columnas -->
+    <div class="layout-container">
+
+      <!-- Columna Izquierda: Rueda Interactiva -->
+      <div class="column-left">
+        
+        <div class="rueda-container">
+          <!-- Asegúrate de que esta ruta sea correcta para tu proyecto -->
+          <div class="cultura-circulo-container">
+            <div class="cultura-circulo-giratorio">
+              <img src="./assets/images/cultura-imgen.png" alt="Cultura" class="cultura-cultura-img">
+              <svg viewBox="0 0 200 200" width="500" height="500" class="circle-menu girar-auto circle-menu-superpuesto">
+                <!-- Cuarto 1 -->
+                <a href="https://www.youtube.com/" target="_blank">
+                  <path d="M100,100 L100,0 A100,100 0 0,1 200,100 Z" fill="#00000000"/>
+                </a>
+                <!-- Cuarto 2 -->
+                <a href="https://www.google.com/" target="_blank">
+                  <path d="M100,100 L200,100 A100,100 0 0,1 100,200 Z" fill="#00000000"/>
+                </a>
+                <!-- Cuarto 3 -->
+                <a href="https://www.gane.com.co/" target="_blank">
+                  <path d="M100,100 L100,200 A100,100 0 0,1 0,100 Z" fill="#00000000"/>
+                </a>
+                <!-- Cuarto 4 -->
+                <a href="https://teams.microsoft.com/v2/" target="_blank">
+                  <path d="M100,100 L0,100 A100,100 0 0,1 100,0 Z" fill="#00000000"/>
+                </a>
+              </svg>
+            </div>
+            <!--Logo central para digitar <img src="./assets/images/logo.png" alt="Cultura" class="cultura-cultura-img"> -->
+         </div>
+     
+          
+          <!-- Las zonas clicables invisibles van por encima -->
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Mensaje Principal con nuevo diseño -->
+      <div class="column-right">
+        <div class="title-decorator"></div>
+        <div class="hero-card">
+          <!-- Icono decorativo esquina superior izquierda -->
+          <span class="hero-icon hero-icon-top-left">
+            <svg width="32" height="32" fill="none"><circle cx="16" cy="16" r="14" stroke="#0083D6" stroke-width="3" fill="#E3F4FF"/></svg>
+          </span>
+          <!-- Icono decorativo esquina inferior derecha -->
+          <span class="hero-icon hero-icon-bottom-right">
+            <svg width="36" height="36" fill="none"><rect x="6" y="6" width="24" height="24" rx="8" fill="#FFC423" fill-opacity="0.18" stroke="#FFC423" stroke-width="2"/></svg>
+          </span>
+          <h1 class="main-headline">
+            <svg class="headline-icon" width="32" height="32" fill="none"><path d="M16 2v28M2 16h28" stroke="#0083D6" stroke-width="3" stroke-linecap="round"/></svg>
+            <span>¡Bienvenido(a)!</span>
+          </h1>
+          <p class="sub-headline">
+            <svg class="desc-icon" width="24" height="24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FFC423" stroke-width="2"/><path d="M8 12l2.5 2.5L16 9" stroke="#0083D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Es la propuesta de valor que la compañía brinda a todos nuestros integrantes, buscando impactar de manera integral estas 4 dimensiones de su bienestar.
+          </p>
+          <button class="cta-button" (click)="navegarA('explorar')">
+            <svg class="btn-icon" width="22" height="22" fill="none"><circle cx="11" cy="11" r="10" stroke="#fff" stroke-width="2"/><path d="M8 11l3 3 3-3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Comienza a Explorar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

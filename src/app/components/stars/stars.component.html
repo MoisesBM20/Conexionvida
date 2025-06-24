@@ -1,0 +1,67 @@
+<!-- stars.component.html -->
+<div class="stars-page-container">
+    
+    <header class="stars-header">
+        <div class="stars-background"></div>
+        <div class="stars-background-2"></div>
+        <img src="./assets/images/NocheEstrellas/nocheestrellas.png" alt="Logo Noche de Estrellas" class="header-logo">
+        <div class="header-text">
+            <h1>Una celebración especial</h1>
+            <p>Este es un espacio pensado para generar un acercamiento entre la empresa y la familia de nuestros integrantes, haciéndolos participes de un espacio de reconocimiento.</p>
+        </div>
+    </header>
+
+    <main class="stars-content">
+        
+        <!-- Galería de Fotos con Botones y Arrastre -->
+        <section class="content-section">
+            <h2>Galería de Fotos</h2>
+            <div class="photo-carousel">
+                <button class="carousel-nav-button prev" (click)="scrollPhotos('prev')" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div #photoTrack class="photo-viewport" 
+                     (mousedown)="onMouseDown($event)" 
+                     (mouseleave)="onMouseLeave(photoTrack)" 
+                     (mouseup)="onMouseUp()" 
+                     (mousemove)="onMouseMove($event)">
+                    <div class="photo-track">
+                        <div class="photo-gallery-item" *ngFor="let photo of photos" (click)="openImageModal(photo.url)">
+                            <img [src]="photo.url" [alt]="photo.alt">
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-nav-button next" (click)="scrollPhotos('next')" aria-label="Siguiente">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Sección de Videos con Reproducción Directa -->
+        <section class="content-section">
+            <h2>Revive las Ediciones Anteriores</h2>
+            <div class="video-grid">
+                <div class="video-card" *ngFor="let video of videos" [class.playing]="video.isPlaying" (click)="playVideo(video)">
+                    <div class="video-player" *ngIf="video.isPlaying">
+                        <!-- La URL ahora se genera una sola vez y se guarda -->
+                        <iframe [src]="video.safeUrl" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <ng-container *ngIf="!video.isPlaying">
+                        <img [src]="video.thumbnailUrl" [alt]="'Miniatura del video ' + video.title" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                        <p class="video-title">{{ video.title }}</p>
+                    </ng-container>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal para visualizar la imagen de la galería -->
+<div class="image-modal-backdrop" *ngIf="isImageModalVisible" (click)="closeImageModal()">
+    <div class="image-modal-content">
+        <img [src]="selectedImageUrl" alt="Imagen de la galería ampliada">
+    </div>
+</div>
