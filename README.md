@@ -1,27 +1,73 @@
-# Conexionvida
+Conexionvida/
+│
+├── src/
+│ ├── app/
+│ │ ├── app.module.ts
+│ │ ├── app-routing.module.ts
+│ │ ├── components/
+│ │ │ ├── agreement/
+│ │ │ ├── attraction/
+│ │ │ ├── footer/
+│ │ │ ├── ganefamily/
+│ │ │ ├── hero/
+│ │ │ ├── navbar/
+│ │ │ ├── stars/
+│ │ │ └── team/
+│ ├── assets/
+│ │ └── images/
+│ │ └── (imágenes organizadas por categorías)
+│ ├── styles.scss
+│ └── index.html
+├── angular.json
+├── package.json
+└── README.md
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
 
-## Development server
+## Instalación
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. **Clona el repositorio:**
+   ```bash
+   git clone <URL-del-repositorio>
+   cd Conexionvida
+   ```
 
-## Code scaffolding
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. **Ejecuta la aplicación en modo desarrollo:**
+   ```bash
+   ng serve
+   ```
+   Luego abre tu navegador en [http://localhost:4200](http://localhost:4200).
 
-## Build
+## Uso
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Navega por las diferentes secciones usando la barra de navegación.
+- Visualiza convenios, promociones, vacantes y el equipo de trabajo.
+- El diseño es responsivo y se adapta a dispositivos móviles y de escritorio.
 
-## Running unit tests
+## Componentes Principales
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Navbar:** Barra de navegación principal.
+- **Hero:** Sección principal de bienvenida.
+- **Agreement:** Muestra los convenios disponibles.
+- **Attraction:** Promociones y vacantes.
+- **Team:** Información sobre el equipo.
+- **Footer:** Pie de página con información de contacto y enlaces útiles.
+- **Stars, Ganefamily:** Otros componentes visuales y de contenido.
 
-## Running end-to-end tests
+## Recursos y Assets
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Las imágenes y recursos multimedia se encuentran en la carpeta `src/assets/images/`, organizadas por categorías como convenios, bienestar, promociones, vacantes, etc.
 
-## Further help
+## Contribuciones
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+¡Las contribuciones son bienvenidas! Si deseas mejorar este proyecto, por favor abre un issue o envía un pull request.
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+---

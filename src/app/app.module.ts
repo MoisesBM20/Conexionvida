@@ -13,6 +13,7 @@ import { AgreementComponent } from './components/agreement/agreement.component';
 import { AttractionComponent } from './components/attraction/attraction.component';
 import { StarsComponent } from './components/stars/stars.component';
 import { GanefamilyComponent } from './components/ganefamily/ganefamily.component';
+import { PensionerComponent } from './components/pensioner/pensioner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { GanefamilyComponent } from './components/ganefamily/ganefamily.componen
     AgreementComponent,
     AttractionComponent,
     StarsComponent,
-    GanefamilyComponent
+    GanefamilyComponent,
+    PensionerComponent,
+
   ],
   imports: [
     BrowserModule,

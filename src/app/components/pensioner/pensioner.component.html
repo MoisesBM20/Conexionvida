@@ -1,0 +1,40 @@
+<!-- pensioner.component.html -->
+<div class="pensioner-page-container">
+    
+    <header class="pensioner-header">
+        <h1>Galería de Honor</h1>
+        <p>Un reconocimiento a quienes han dedicado su talento y años de servicio a nuestra gran familia. ¡Gracias por tanto!</p>
+    </header>
+
+    <main class="pensioner-content">
+        <div class="pensioner-grid">
+            
+            <!-- Usamos *ngFor para generar una tarjeta por cada pensionado -->
+            <div class="pensioner-card" *ngFor="let pensioner of pensioners" (click)="openModal(pensioner)">
+                <img [src]="pensioner.photoUrl" [alt]="'Foto de ' + pensioner.name" class="photo">
+                <h3 class="name">{{ pensioner.name }}</h3>
+                <p class="last-role">{{ pensioner.lastRole }}</p>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+
+<!-- Modal para ver la información detallada del pensionado -->
+<div class="modal-backdrop" *ngIf="isModalVisible" (click)="closeModal()">
+    <div class="modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+        
+        <div class="modal-header">
+            <button type="button" class="close-button" (click)="closeModal()" aria-label="Cerrar">&times;</button>
+        </div>
+        
+        <div class="modal-body" *ngIf="selectedPensioner">
+            <img [src]="selectedPensioner.photoUrl" [alt]="'Foto de ' + selectedPensioner.name" class="modal-photo">
+            <h2 class="modal-name">{{ selectedPensioner.name }}</h2>
+            <p class="modal-info">{{ selectedPensioner.lastRole }} • {{ selectedPensioner.yearsOfService }} años de servicio</p>
+            <p class="modal-message">"{{ selectedPensioner.farewellMessage }}"</p>
+        </div>
+
+    </div>
+</div>

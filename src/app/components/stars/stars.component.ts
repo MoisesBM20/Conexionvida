@@ -6,7 +6,7 @@ export interface Video {
   thumbnailUrl: string;
   youtubeId: string;
   isPlaying?: boolean;
-  safeUrl?: SafeResourceUrl; // ✨ NUEVO: Almacena la URL segura para evitar recargas
+  safeUrl?: SafeResourceUrl; // Almacena la URL segura para evitar recargas
 }
 
 export interface Photo {
@@ -29,7 +29,7 @@ export class StarsComponent {
   private startX = 0;
   private scrollLeft = 0;
   
-  // --- Lógica para modales y datos ---
+  // --- Lógica para modales y datoss ---
   isImageModalVisible = false;
   selectedImageUrl: string | null = null;
   

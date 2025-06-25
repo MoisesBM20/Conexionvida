@@ -1,4 +1,96 @@
-<div class="family-header">
-    <h1>Gane Familias</h1>
-    <p>Este es un espacio pensado para generar un acercamiento entre la empresa y la familia de nuestros integrantes, haciéndolos participes de un espacio de reconocimiento.</p>
+<!-- ganefamily.component.html -->
+<div class="gane-family-container">
+    
+    <header class="family-header">
+        <!-- Divs para las formas flotantes de fondo -->
+        <div class="floating-shapes">
+            <!-- Círculos que flotan suavemente -->
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+        
+            <!-- Corazones que vuelan suavemente -->
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+            
+
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+            <span class="flying-heart"></span>
+
+        </div>
+        
+        <!-- ✨ CORRECCIÓN: Contenedor para la imagen y el corazón animado -->
+        <div class="header-logo-container">
+            <img src="./assets/images/GaneFamilia/ganefamilia.png" alt="Logo Gane Familias" class="header-logo-image">
+            
+            <!-- Icono del corazón animado, superpuesto sobre la imagen -->
+            <svg class="heart-overlay" viewBox="0 0 32 29.6">
+                <path d="M23.6,0C21.4,0,19.3,1.3,18.3,3.3L16,7.6l-2.3-4.3C12.7,1.3,10.6,0,8.4,0C3.8,0,0,3.8,0,8.4
+                c0,9.4,9.5,11.9,16,21.2c6.5-9.3,16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z" fill="#e74c3c"/>
+            </svg>
+        </div>
+
+        <div class="header-text">
+            <h1>Uniendo a los que más quieres</h1>
+            <p>Este es un espacio pensado para generar un acercamiento entre la empresa y la familia de nuestros integrantes, haciéndolos participes de un espacio de reconocimiento.</p>
+        </div>
+    </header>
+
+    <main class="family-content">
+        <!-- (El resto del contenido: carrusel de fotos y sección de videos no necesita cambios) -->
+        
+        <!-- Galería de Fotos con Arrastre y Botones -->
+        <section class="content-section">
+            <h2>Nuestros Encuentros</h2>
+            <div class="photo-carousel">
+                <button class="carousel-nav-button prev" (click)="scrollPhotos('prev')" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div #photoTrack class="photo-viewport" 
+                     (mousedown)="onMouseDown($event, photoTrack)" 
+                     (mouseleave)="onMouseLeave(photoTrack)" 
+                     (mouseup)="onMouseUp()" 
+                     (mousemove)="onMouseMove($event, photoTrack)">
+                    <div class="photo-track">
+                        <div class="photo-gallery-item" *ngFor="let photo of photos" (click)="onItemClick(photo.url)">
+                            <img [src]="photo.url" [alt]="photo.alt">
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-nav-button next" (click)="scrollPhotos('next')" aria-label="Siguiente">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Sección de Videos con Reproducción Directa -->
+        <section class="content-section">
+            <h2>Momentos en Video</h2>
+            <div class="video-grid">
+                <div class="video-card" *ngFor="let video of videos" [class.playing]="video.isPlaying" (click)="playVideo(video)">
+                    <div class="video-player" *ngIf="video.isPlaying">
+                        <iframe [src]="video.safeUrl" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <ng-container *ngIf="!video.isPlaying">
+                        <img [src]="video.thumbnailUrl" [alt]="'Miniatura del video ' + video.title" class="video-thumbnail">
+                        <div class="video-overlay">
+                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                        <p class="video-title">{{ video.title }}</p>
+                    </ng-container>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal para visualizar la imagen de la galería -->
+<div class="image-modal-backdrop" *ngIf="isImageModalVisible" (click)="closeImageModal()">
+    <div class="image-modal-content">
+        <img [src]="selectedImageUrl" alt="Imagen de la galería ampliada">
+    </div>
 </div>

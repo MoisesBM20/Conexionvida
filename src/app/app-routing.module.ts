@@ -6,7 +6,7 @@ import { AgreementComponent } from './components/agreement/agreement.component';
 import { AttractionComponent } from './components/attraction/attraction.component';
 import { StarsComponent } from './components/stars/stars.component';
 import { GanefamilyComponent } from './components/ganefamily/ganefamily.component';
-
+import { PensionerComponent } from './components/pensioner/pensioner.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'hero', pathMatch: 'full' },
@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: 'agreement', component: AgreementComponent },
   { path: 'attraction', component: AttractionComponent },
   { path: 'stars', component: StarsComponent },
-  { path: 'ganefamily', component: GanefamilyComponent }
+  { path: 'ganefamily', component: GanefamilyComponent },
+  { path: 'pensioner', component: PensionerComponent }
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

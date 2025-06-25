@@ -1,24 +1,320 @@
+:host {
+    display: block;
+}
+
+// --- Keyframes para animaciones ---
+@keyframes sway {
+    0% {
+        transform: translateX(-5px) rotate(-8deg);
+    }
+    50% {
+        transform: translateX(5px) rotate(8deg);
+    }
+    100% {
+        transform: translateX(-5px) rotate(-8deg);
+    }
+}
+
+@keyframes logoPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 25px rgba(0, 90, 156, 0.5));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0));
+    }
+}
+
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+// ✨ CORRECCIÓN: Se quita la transición de opacidad para que aparezcan al instante
+@keyframes flyAcross {
+    0% {
+        transform: translateX(-10vw) translateY(10vh) rotate(-15deg);
+    }
+    25% {
+        transform: translateX(25vw) translateY(30vh) rotate(15deg);
+    }
+    50% {
+        transform: translateX(50vw) translateY(5vh) rotate(-15deg);
+    }
+    75% {
+        transform: translateX(75vw) translateY(25vh) rotate(15deg);
+    }
+    100% {
+        transform: translateX(110vw) translateY(15vh) rotate(-15deg);
+    }
+}
+
+
+@keyframes modalFadeIn {
+    from { background-color: rgba(0,0,0,0); backdrop-filter: blur(0px); }
+    to { background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+}
+@keyframes modalImageZoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.gane-family-container {
+    width: 100%;
+    background-color: #fdfdff;
+}
+
 /* --- ENCABEZADO DE LA PÁGINA --- */
 .family-header {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 20px;
+    background-color: #0d2a4c;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30, 58, 138, 0.7), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 170, 255, 0.5), transparent 50%);
+    color: white;
+    border-bottom: 1px solid #e9ecef;
+}
+
+// Formas flotantes de fondo
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    .circle {
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        background-color: rgba(224, 247, 250, 0.2);
+        animation: float 20s infinite ease-in-out;
+
+        &:nth-of-type(1) { width: 40px; height: 40px; left: 10%; animation-duration: 22s; }
+        &:nth-of-type(2) { width: 20px; height: 20px; left: 25%; animation-duration: 18s; animation-delay: -5s; }
+        &:nth-of-type(3) { width: 60px; height: 60px; left: 80%; animation-duration: 25s; }
+    }
+    
+    .flying-heart {
+        position: absolute;
+        display: block;
+        background: #e74c3c;
+        width: 20px;
+        height: 20px;
+        transform: rotate(-45deg);
+        animation: flyAcross 15s linear infinite;
+        opacity: 0.9;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e74c3c;
+        }
+        &::before { top: -10px; left: 0; }
+        &::after { top: 0; left: 10px; }
+
+        // ✨ Se aplican delays y duraciones a los corazones
+        &:nth-of-type(1) { top: 20%; animation-delay: 0s; animation-duration: 18s; }
+        &:nth-of-type(2) { top: 60%; animation-delay: -5s; animation-duration: 12s; }
+        &:nth-of-type(3) { top: 85%; animation-delay: -10s; animation-duration: 22s; }
+        &:nth-of-type(4) { top: 40%; animation-delay: -3s; animation-duration: 15s; }
+        &:nth-of-type(5) { top: 5%; animation-delay: -8s; animation-duration: 20s; }
+        &:nth-of-type(6) { top: 70%; animation-delay: -12s; animation-duration: 16s; }
+        &:nth-of-type(7) { top: 10%; animation-delay: -4s; animation-duration: 25s; }
+    }
+}
+
+// Contenedor para el logo y el corazón
+.header-logo-container {
+    position: relative;
     margin-bottom: 20px;
-    background: linear-gradient(to right, #f4f7fc, #e5f0ff);
-    border-radius: 0 0 20px 20px;
+    z-index: 1;
 }
 
-.family-header h1 {
+.header-logo-image {
+    width: 400px;
+    height: auto;
+    display: block;
+    animation: logoPulse 3s infinite ease-in-out;
+}
+
+// Estilos para el corazón superpuesto
+.heart-overlay {
+    position: absolute;
+    width: 45px;
+    height: auto;
+    top: 68%; 
+    left: 49%;
+    transform-origin: bottom center;
+    animation: sway 2.5s infinite ease-in-out;
+}
+
+.header-text { z-index: 1; }
+.header-text h1 { font-size: 2.8rem; font-weight: 700; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.header-text p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; opacity: 0.9; }
+
+/* --- CONTENIDO PRINCIPAL --- */
+.family-content { padding: 50px 40px; }
+.content-section { margin-bottom: 60px; }
+.content-section h2 { font-size: 2rem; font-weight: 700; color: #005A9C; text-align: center; margin-bottom: 30px; }
+
+/* Carrusel de Fotos */
+.photo-carousel {
+    position: relative;
+    padding: 0 50px;
+}
+.photo-viewport {
+    overflow-x: scroll;
+    cursor: grab;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+    
+    &.is-dragging {
+        cursor: grabbing;
+        scroll-behavior: auto;
+    }
+}
+.photo-track {
+    display: flex;
+    gap: 15px;
+    &.is-dragging {
+        pointer-events: none;
+        user-select: none;
+    }
+}
+.photo-gallery-item {
+    height: 250px;
+    flex-shrink: 0;
+    cursor: pointer;
+    img {
+        width: auto;
+        height: 100%;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: scale(1.03);
+        }
+    }
+}
+.carousel-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #005A9C;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: transform 0.2s ease;
+    z-index: 10;
+    &:hover { transform: translateY(-50%) scale(1.1); }
+    &.prev { left: 0; }
+    &.next { right: 0; }
 }
 
-.family-header p {
-    color: #5a738e;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
+/* Grid de Videos */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.video-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    aspect-ratio: 16 / 9;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+}
+.video-thumbnail, .video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+}
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+.play-icon {
+    width: 60px;
+    height: 60px;
+    fill: white;
+    transition: transform 0.3s ease;
+}
+.video-card:hover .play-icon {
+    transform: scale(1.2);
+}
+.video-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    font-weight: 600;
+}
+.video-card.playing .video-thumbnail,
+.video-card.playing .video-overlay {
+    display: none;
+}
+
+/* --- Estilos para el Modal de la Galería --- */
+.image-modal-backdrop {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    z-index: 2000; display: flex; justify-content: center; align-items: center;
+    padding: 20px; box-sizing: border-box; cursor: pointer;
+    animation: modalFadeIn 0.3s ease;
+}
+.image-modal-content {
+    max-width: 90%; max-height: 90%;
+    animation: modalImageZoomIn 0.3s ease;
+    img {
+        width: auto; height: auto; max-width: 100%; max-height: 100%;
+        object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
 }
