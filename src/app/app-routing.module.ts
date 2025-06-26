@@ -14,6 +14,8 @@ import { BMentalComponent } from './components/ring/bmental/bmental.component';
 import { BEducationalComponent } from './components/ring/beducational/beducational.component';
 import { BFinancialComponent } from './components/ring/bfinancial/bfinancial.component';
 
+import { PruebasComponent } from './components/pruebas/pruebas.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'hero', pathMatch: 'full' },
   { path: '', component: HeroComponent },
@@ -28,7 +30,9 @@ const routes: Routes = [
   { path: 'bphysical', component: BPhysicalComponent },
   { path: 'bmental', component: BMentalComponent },
   { path: 'beducational', component: BEducationalComponent },
-  { path: 'bfinancial', component: BFinancialComponent }
+  { path: 'bfinancial', component: BFinancialComponent },
+  // Rutas para pruebas
+  {path : 'pruebas', component: PruebasComponent}
 
 ];
 @NgModule({

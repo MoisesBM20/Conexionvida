@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organigrama del Equipo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --line-color: #d1d9e0;
+            --primary-blue: #005A9C;
+            --background-color: #f4f7fc;
+            
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            padding: 10px 0 40px 0;
+            color: #333;
+        }
+
+        .team-page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-header {
+            text-align: center;
+            padding: 
+            1px 5px 15px 20px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #f4f7fc, #e5f0ff);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .team-header h1 {
+            color: #005A9C;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-header p {
+            color: #5a738e;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- ✨ NUEVO: Contenedor Principal con CSS Grid --- */
+        .org-container {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, auto);
+            gap: 70px 20px; 
+            width: 100%;
+            max-width: 1100px; 
+            margin: 0 auto;
+        }
+
+        /* --- ✨ NUEVO: SVG para dibujar las líneas --- */
+        .org-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; 
+            pointer-events: none; 
+        }
+        .org-lines path {
+            fill: none;
+            stroke: black;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 6,6;
+        }
+
+        /* --- TARJETA DE CADA INTEGRANTE --- */
+        .member-card {
+            position: relative;
+            width: 140px;
+            height: 150px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 41, 83, 0.1);
+            padding: 12px 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10; 
+            justify-self: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            &:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 35px rgba(0, 41, 83, 0.15);
+            }
+
+            .photo {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin: 0 0 10px 0;
+                border: 4px solid #e0e8f3;
+                object-fit: cover;
+                display: block;
+            }
+            .name {
+                font-weight: 700;
+                font-size: 0.95rem;
+                color: var(--primary-blue);
+                margin: 0;
+            }
+            .role {
+                font-weight: 800;
+                font-size: 0.75rem;
+                color: #5a738e;
+                min-height: 1em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* --- ✨ NUEVO: Posicionamiento de cada tarjeta en la grilla --- */
+        #director-general { grid-area: 5 / 1 / 6 / 5; }
+        #jefe-cultura { grid-area: 4 / 1 / 5 / 5; }
+        #coord-atraccion { grid-area: 3 / 1 / 4 / 3; }
+        #coord-bienestar { grid-area: 3 / 3 / 4 / 5; }
+        #asistente-atraccion { grid-area: 2 / 1; }
+        #analista-atraccion { grid-area: 2 / 2; }
+        #analista-bienestar { grid-area: 2 / 3; }
+        #aprendiz-bienestar { grid-area: 2 / 4; }
+        #auxiliar-atraccion { grid-area: 1 / 1; }
+        
+        /* --- TARJETA DE INFORMACIÓN PERSONAL (APARECE AL HACER HOVER) --- */
+.info-popup {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    width: 250px;
+    background: #005A9C;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.member-card:hover .info-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.info-popup::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #005A9C transparent;
+}
+
+.info-popup h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 5px;
+}
+
+.info-popup p {
+    font-size: 0.85rem;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.org-main-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-right: 0;
+  justify-content: center;
+}
+
+.org-container {
+  flex: 1;
+  /* ... tus estilos previos ... */
+}
+
+.info-panel {
+  width: 350px;
+  background: linear-gradient(135deg, #e5f0ff 0%, #f4f7fc 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 41, 83, 0.13), 0 1.5px 0 #005A9C inset;
+  padding: 36px 28px 28px 28px;
+  border: 1.5px solid #e0e8f3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s, border 0.2s;
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  animation: fadeInPanel 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+.info-panel h2 {
+  color: #005A9C;
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.info-panel h4 {
+  color: #5a738e;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.2px;
+}
+
+.info-panel .info-list {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.info-panel .info-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.info-panel .info-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #005A9C;
+  background: #e0e8f3;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+
+.info-panel button {
+  margin-top: 18px;
+  background: linear-gradient(90deg, #005A9C 60%, #0074d9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,90,156,0.08);
+  transition: background 0.2s, transform 0.1s;
+}
+.info-panel button:hover {
+  background: linear-gradient(90deg, #003f6d 60%, #005A9C 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.member-card.selected {
+  border: 2px solid #005A9C;
+  box-shadow: 0 0 0 4px #e5f0ff;
+}
+
+/* Añade animación fade-in a info-panel */
+@keyframes fadeInPanel {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="team-header">
+        <h1>ORGANIGRAMA</h1>
+        <p>Buscamos el mejor talento para la organización</p>
+    </div>
+    <div class="team-page-container">
+        <div class="org-main-layout">
+            <!-- Organigrama -->
+            <div class="org-container">
+                <!-- SVG para dibujar las líneas conectoras -->
+                <svg class="org-lines" viewBox="0 0 1100 850" preserveAspectRatio="none">
+                    <!-- Director a Jefe -->
+                    <path d="M 550 850 V 610" />
+                    <!-- Jefe a Coordinadores -->
+                    <path d="M 260 460 V 580 H 800" />
+                    <path d="M 820 460 V 580 H 500" />
+
+                    <!-- Coord. Atracción a su equipo -->
+                    
+                    <!-- LINEA HORIZONTAL DE ASISTENTE A ANALISTA DE ATRACCION -->
+                    <path d="M 400 250 H 175" />
+                    
+                    <!-- De asistente de atraccion a auxiliar -->
+                    <!--<path d="M 130 170 V 60" /> -->
+                    <path d="M 270 390 V 60 H 210" />
+
+                    <!-- L que baja al Analista de Bienestar -->
+                    <path d="M 680 305 V 430 H 800" />
+
+                    <!-- Línea que baja al Aprendiz -->
+                    <path d="M 1030 250 H 775" />
+
+                </svg>
+
+                <!-- Todas las tarjetas de miembro se colocan aquí, sin listas anidadas -->
+                <div
+                    id="director-general"
+                    class="member-card"
+                    (click)="selectMember('director-general')"
+                    [class.selected]="selectedMember === 'director-general'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo" />
+                    <h3 class="name">Frank Medina</h3>
+                    <p class="role">Director General</p>
+                </div>
+
+                <div
+                    id="jefe-cultura"
+                    class="member-card"
+                    (click)="selectMember('jefe-cultura')"
+                    [class.selected]="selectedMember === 'jefe-cultura'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Ximena Garcés</h3>
+                    <p class="role">Jefe de Cultura y Desarrollo</p>
+                </div>
+
+                <div
+                    id="coord-atraccion"
+                    class="member-card"
+                    (click)="selectMember('coord-atraccion')"
+                    [class.selected]="selectedMember === 'coord-atraccion'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">M. Alexandra Valencia</h3>
+                    <p class="role">Coordinadora de Atracción</p>
+                </div>
+
+                <div
+                    id="coord-bienestar"
+                    class="member-card"
+                    (click)="selectMember('coord-bienestar')"
+                    [class.selected]="selectedMember === 'coord-bienestar'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Diana Katherine Ortega</h3>
+                    <p class="role">Coord. Bienestar y Desarrollo</p>
+                </div>
+                
+                <div
+                    id="asistente-atraccion"
+                    class="member-card"
+                    (click)="selectMember('asistente-atraccion')"
+                    [class.selected]="selectedMember === 'asistente-atraccion'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Adriana Maria Ordoñez</h3>
+                    <p class="role">Asistente de Atracción</p>
+                </div>
+
+                <div
+                    id="analista-atraccion"
+                    class="member-card"
+                    (click)="selectMember('analista-atraccion')"
+                    [class.selected]="selectedMember === 'analista-atraccion'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Esperanza Lasso E.</h3>
+                    <p class="role">Analista de Atracción</p>
+                </div>
+                
+                <div
+                    id="auxiliar-atraccion"
+                    class="member-card"
+                    (click)="selectMember('auxiliar-atraccion')"
+                    [class.selected]="selectedMember === 'auxiliar-atraccion'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Yesid Ortiz Hernandez</h3>
+                    <p class="role">Auxiliar de Atracción</p>
+                </div>
+                
+                <div
+                    id="analista-bienestar"
+                    class="member-card"
+                    (click)="selectMember('analista-bienestar')"
+                    [class.selected]="selectedMember === 'analista-bienestar'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Diana Carolina Osorio</h3>
+                    <p class="role">Analista de Bienestar y Desarrollo</p>
+                </div>
+
+                <div
+                    id="aprendiz-bienestar"
+                    class="member-card"
+                    (click)="selectMember('aprendiz-bienestar')"
+                    [class.selected]="selectedMember === 'aprendiz-bienestar'"
+                >
+                    <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                    <h3 class="name">Aprendiz</h3>
+                    <p class="role">Aprendiz de Bienestar y Desarrollo</p>
+                </div>
+            </div>
+
+            <!-- Panel de información -->
+            <div class="info-panel" [@panelAnimation]>
+                <ng-container *ngIf="selectedMember; else generalInfo">
+                    <img 
+                        [src]="memberInfo[selectedMember]?.photo" 
+                        [alt]="memberInfo[selectedMember]?.name" 
+                        class="photo" 
+                        style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 18px; display: block; border: 4px solid #e0e8f3; object-fit: cover;" 
+                    />
+                    <h2>{{ memberInfo[selectedMember]?.name }}</h2>
+                    <h4>{{ memberInfo[selectedMember]?.role }}</h4>
+                    <p style="color:#333; font-size:1.05rem; margin-bottom:18px; min-height:48px;">{{ memberInfo[selectedMember]?.description }}</p>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-icon">📧</span>
+                            <span><strong>Email:</strong> {{ memberInfo[selectedMember]?.email }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <span><strong>Teléfono:</strong> {{ memberInfo[selectedMember]?.phone }}</span>
+                        </div>
+                    </div>
+                    <button (click)="selectedMember = null">Cerrar</button>
+                </ng-container>
+                <ng-template #generalInfo>
+                    <div style="width:80px; height:80px; margin:0 auto 18px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#e0e8f3;">
+                        <svg width="48" height="48" fill="#005A9C" viewBox="0 0 24 24">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M12 14c-5 0-8 2.5-8 4.5V21h16v-2.5c0-2-3-4.5-8-4.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Equipo de Cultura & Desarrollo</h3>
+                    <h4>Conozca más del departamento</h4>
+                    <p style="color:#333; font-size:1.05rem; margin-bottom:18px; min-height:48px;">
+                        Selecciona un miembro del organigrama para ver su información detallada aquí.
+                    </p>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-icon">👥</span>
+                            <span>Conoce a nuestro equipo de trabajo y su estructura organizacional.</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

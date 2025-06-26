@@ -18,6 +18,7 @@ import { BPhysicalComponent } from './components/ring/bphysical/bphysical.compon
 import { BMentalComponent } from './components/ring/bmental/bmental.component';
 import { BEducationalComponent } from './components/ring/beducational/beducational.component';
 import { BFinancialComponent } from './components/ring/bfinancial/bfinancial.component';
+import { PruebasComponent } from './components/pruebas/pruebas.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BFinancialComponent } from './components/ring/bfinancial/bfinancial.com
     BMentalComponent,
     BEducationalComponent,
     BFinancialComponent,
+    PruebasComponent,
 
   ],
   imports: [
