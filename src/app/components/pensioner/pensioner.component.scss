@@ -3,108 +3,172 @@
     background-color: #f8f9fa;
 }
 
-// --- Keyframes para animaciones ---
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes modalZoomIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes modalZoomOut {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.9); }
-}
+// --- Keyframes ---
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes modalZoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes modalZoomOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
 
 /* --- ENCABEZADO DE LA PÁGINA --- */
 .pensioner-header {
     text-align: center;
     padding: 50px 20px;
-    background: white;
-    border-bottom: 1px solid #e0e7ff;
+    background: linear-gradient(135deg, #005A9C 0%, #3498db 100%);
+    color: white;
 }
-
 .pensioner-header h1 {
-    font-family: 'Georgia', serif; // Una fuente más elegante
-    font-size: 2.8rem;
-    color: #c09a3e; // Tono dorado
-    margin: 0 0 10px 0;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
-
 .pensioner-header p {
     font-size: 1.2rem;
-    color: #6c757d;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 10px auto 0 auto;
+    opacity: 0.9;
 }
 
 /* --- Contenido Principal --- */
 .pensioner-content {
-    padding: 50px 40px;
-}
-
-.pensioner-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: 450px 1fr;
+    gap: 40px;
+    padding: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
+/* Columna Izquierda: Lista de Pensionados */
+.pensioner-list-column {
+    height: 80vh;
+    overflow-y: auto;
+    padding-right: 20px;
+}
 .pensioner-card {
     background: white;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0, 41, 83, 0.08);
-    text-align: center;
-    padding: 30px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 0.5s ease-out forwards;
-    opacity: 0; // Inicia invisible para la animación
+    opacity: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
 
     &:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px) scale(1.02);
         box-shadow: 0 12px 40px rgba(0, 41, 83, 0.12);
     }
 }
+.pensioner-card .photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e0e7ff;
+    flex-shrink: 0;
+}
+.pensioner-card .info { text-align: left; }
+.pensioner-card .name { font-size: 1.3rem; font-weight: 700; color: #005A9C; margin: 0 0 5px 0; }
+.pensioner-card .last-role { font-size: 1rem; color: #6c757d; margin: 0; }
+.pensioner-card .years {
+    display: inline-block;
+    background: linear-gradient(to right, #f7971e, #c09a3e);
+    color: white;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
 
-// Retraso escalonado en la animación de entrada de cada tarjeta
-@for $i from 1 through 10 {
-    .pensioner-card:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.1}s;
+/* Columna Derecha: Galería de Imágenes (CORREGIDA) */
+.pensioner-gallery-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 80vh; /* Se iguala la altura de la columna izquierda */
+}
+
+.gallery-main-image {
+    width: 100%;
+    flex-grow: 1; /* Permite que la imagen principal ocupe el espacio disponible */
+    min-height: 0; /* Solución para un bug de overflow en flexbox */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background-color: #eef2f7; // Fondo sutil para la imagen
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; // 'contain' para mostrar la imagen completa sin recortar
     }
 }
 
-.pensioner-card .photo {
-    width: 140px;
-    height: 140px;
+.thumbnail-carousel {
+    position: relative;
+    padding: 0 40px; 
+}
+.thumbnail-viewport {
+    overflow: hidden;
+}
+.gallery-thumbnails {
+    display: flex;
+    gap: 15px;
+    scroll-behavior: smooth;
+    overflow-x: scroll; 
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+}
+.thumbnail {
+    width: 100px;
+    height: 80px;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+    flex-shrink: 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    &.active, &:hover {
+        border-color: #f7971e;
+    }
+}
+
+.thumbnail-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
     border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 20px auto;
-    border: 5px solid #e0e7ff;
-    filter: grayscale(50%);
-    transition: filter 0.3s ease;
-}
-
-.pensioner-card:hover .photo {
-    filter: grayscale(0%);
-}
-
-.pensioner-card .name {
-    font-size: 1.4rem;
-    font-weight: 700;
+    width: 38px;
+    height: 38px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #005A9C;
-    margin: 0 0 5px 0;
+    transition: transform 0.2s;
+    z-index: 5;
+    &:hover { transform: translateY(-50%) scale(1.1); }
+    &.prev { left: 0; }
+    &.next { right: 0; }
 }
 
-.pensioner-card .last-role {
-    font-size: 1rem;
-    color: #6c757d;
-}
-
-/* --- Estilos para el Modal --- */
+/* --- Estilos del Modal --- */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -117,8 +181,8 @@
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px);
+    animation: modalZoomIn 0.3s ease-out forwards;
 }
-
 .modal-container {
     background: white;
     border-radius: 15px;
@@ -128,19 +192,16 @@
     box-shadow: 0 15px 50px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
-    animation: modalZoomIn 0.3s ease-out forwards;
 
     &.is-closing {
         animation: modalZoomOut 0.3s ease-in forwards;
     }
 }
-
 .modal-header {
     display: flex;
     justify-content: flex-end;
     padding: 10px;
 }
-
 .close-button {
     background: #e9ecef;
     border: none;
@@ -152,13 +213,11 @@
     color: #868e96;
     &:hover { background: #dee2e6; }
 }
-
 .modal-body {
     padding: 0 40px 40px 40px;
     text-align: center;
     overflow-y: auto;
 }
-
 .modal-photo {
     width: 180px;
     height: 180px;
@@ -168,20 +227,17 @@
     border: 6px solid #e0e7ff;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
-
 .modal-name {
     font-size: 2rem;
     font-weight: 700;
     color: #005A9C;
     margin: 0 0 10px 0;
 }
-
 .modal-info {
     font-size: 1.1rem;
     color: #6c757d;
     margin-bottom: 25px;
 }
-
 .modal-message {
     font-size: 1.1rem;
     font-style: italic;

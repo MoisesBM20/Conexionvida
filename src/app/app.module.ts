@@ -14,6 +14,10 @@ import { AttractionComponent } from './components/attraction/attraction.componen
 import { StarsComponent } from './components/stars/stars.component';
 import { GanefamilyComponent } from './components/ganefamily/ganefamily.component';
 import { PensionerComponent } from './components/pensioner/pensioner.component';
+import { BPhysicalComponent } from './components/ring/bphysical/bphysical.component';
+import { BMentalComponent } from './components/ring/bmental/bmental.component';
+import { BEducationalComponent } from './components/ring/beducational/beducational.component';
+import { BFinancialComponent } from './components/ring/bfinancial/bfinancial.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { PensionerComponent } from './components/pensioner/pensioner.component';
     StarsComponent,
     GanefamilyComponent,
     PensionerComponent,
+    BPhysicalComponent,
+    BMentalComponent,
+    BEducationalComponent,
+    BFinancialComponent,
 
   ],
   imports: [

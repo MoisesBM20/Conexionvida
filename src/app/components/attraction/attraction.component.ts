@@ -44,7 +44,7 @@ export class AttractionComponent implements OnInit {
       postedTime: 'Publicado hoy',
       imageUrl: './assets/images/atraccion/Vacantes/liderventas.jpeg',
       description: 'Tu función será liderar, supervisar e implementar acciones para el cumplimiento de las metas de venta establecidas para la zona, realizando acompañamiento permanente y dando oportuna respuesta a las necesidades que se presenten en la operación.',
-      requirements: [
+      requirements: [ 
         'Técnico, tecnólogo, profesional o estudiante activo a partir de 7° semestre de carreras administrativas, de mercadeo o afines.',
         'Mínimo un (1) año de experiencia en actividades comerciales y/o relacionadas con liderazgo de equipos, preferiblemente en empresas de consumo masivo.'
       ],

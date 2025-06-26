@@ -1,0 +1,54 @@
+<!-- beducational.component.html -->
+<div class="ring-child-container">
+    
+    <!-- Encabezado de la sección -->
+    <header class="ring-child-header">
+        <img src="http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/I_ICONO_EDUCATIVO.png" alt="Icono Bienestar Educativo" class="icon">
+        <h1>Bienestar Educativo</h1>
+        <p>Impulsamos tu crecimiento profesional y personal a través de oportunidades de formación y desarrollo.</p>
+    </header>
+
+    <div class="ring-child-body">
+
+        <!-- Barra de botones horizontal -->
+        <div class="benefits-bar">
+            <button class="benefit-button" *ngFor="let button of benefitButtons" (click)="button.action(button.modalData)">
+                <span class="material-icons icon">{{ button.icon }}</span>
+                <span>{{ button.text }}</span>
+            </button>
+        </div>
+
+        <!-- Feed de publicaciones -->
+        <div class="timeline-feed">
+            <div *ngFor="let group of groupedPosts">
+                <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
+                <div class="posts-grid">
+                    <div class="timeline-post" *ngFor="let post of group.posts">
+                        <div class="post-image">
+                            <img [src]="post.imageUrl" [alt]="post.altText">
+                        </div>
+                        <div class="post-content">
+                            <p>{{ post.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para información adicional -->
+<div class="info-modal-backdrop" *ngIf="isInfoModalVisible" (click)="closeInfoModal()">
+    <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+        <ng-container *ngIf="selectedModalContent">
+            <div class="modal-header">
+                <h3>{{ selectedModalContent.title }}</h3>
+                <button class="close-button" (click)="closeInfoModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span class="material-icons modal-icon">{{ selectedModalContent.icon }}</span>
+                <p>{{ selectedModalContent.text }}</p>
+            </div>
+        </ng-container>
+    </div>
+</div>

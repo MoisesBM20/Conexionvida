@@ -13,34 +13,35 @@
       <div class="column-left">
         
         <div class="rueda-container">
+          
+          <div class="borde-logo-circular"></div>
           <!-- Asegúrate de que esta ruta sea correcta para tu proyecto -->
+          <img src="./assets/images/cxvida/centro.png" alt="Cultura" class="cultura-cultura-img-circulo">
           <div class="cultura-circulo-container">
             <div class="cultura-circulo-giratorio">
-              <img src="./assets/images/cultura-imgen.png" alt="Cultura" class="cultura-cultura-img">
-              <svg viewBox="0 0 200 200" width="500" height="500" class="circle-menu girar-auto circle-menu-superpuesto">
+              <img src="./assets/images/cxvida/anillo.png" alt="Cultura" class="cultura-cultura-img">
+              <!-- ✨ CORRECCIÓN: Se eliminan width y height para controlar el tamaño con CSS -->
+              <svg viewBox="0 0 200 200" class="circle-menu girar-auto circle-menu-superpuesto">
                 <!-- Cuarto 1 -->
-                <a href="https://www.youtube.com/" target="_blank">
-                  <path d="M100,100 L100,0 A100,100 0 0,1 200,100 Z" fill="#00000000"/>
+                <a routerLink="/bmental">
+                  <path d="M100,100 L100,0 A100,100 0 0,1 200,100 Z" fill="transparent"/>
                 </a>
                 <!-- Cuarto 2 -->
-                <a href="https://www.google.com/" target="_blank">
-                  <path d="M100,100 L200,100 A100,100 0 0,1 100,200 Z" fill="#00000000"/>
+                <a routerLink="/bfinancial">
+                  <path d="M100,100 L200,100 A100,100 0 0,1 100,200 Z" fill="transparent"/>
                 </a>
                 <!-- Cuarto 3 -->
-                <a href="https://www.gane.com.co/" target="_blank">
-                  <path d="M100,100 L100,200 A100,100 0 0,1 0,100 Z" fill="#00000000"/>
+                <a routerLink="/beducational">
+                  <path d="M100,100 L100,200 A100,100 0 0,1 0,100 Z" fill="transparent"/>
                 </a>
                 <!-- Cuarto 4 -->
-                <a href="https://teams.microsoft.com/v2/" target="_blank">
-                  <path d="M100,100 L0,100 A100,100 0 0,1 100,0 Z" fill="#00000000"/>
+                <a routerLink="/bphysical">
+                  <path d="M100,100 L0,100 A100,100 0 0,1 100,0 Z" fill="transparent"/>
                 </a>
               </svg>
             </div>
-            <!--Logo central para digitar <img src="./assets/images/logo.png" alt="Cultura" class="cultura-cultura-img"> -->
-         </div>
-     
-          
-          <!-- Las zonas clicables invisibles van por encima -->
+           </div>
+      
         </div>
       </div>
 
