@@ -78,7 +78,7 @@
 .pensioner-card .last-role { font-size: 1rem; color: #6c757d; margin: 0; }
 .pensioner-card .years {
     display: inline-block;
-    background: linear-gradient(to right, #f7971e, #c09a3e);
+    background: linear-gradient(to right, #005A9C, #005A9C);
     color: white;
     font-weight: 700;
     padding: 4px 12px;
@@ -87,7 +87,7 @@
     margin-top: 10px;
 }
 
-/* Columna Derecha: Galería de Imágenes (CORREGIDA) */
+/* Columna Derecha: Galería de Imágenes*/
 .pensioner-gallery-column {
     display: flex;
     flex-direction: column;
@@ -98,7 +98,7 @@
 .gallery-main-image {
     width: 100%;
     flex-grow: 1; /* Permite que la imagen principal ocupe el espacio disponible */
-    min-height: 0; /* Solución para un bug de overflow en flexbox */
+    min-height: 0; /* Evita que la imagen crezca más allá de su contenedor */
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);

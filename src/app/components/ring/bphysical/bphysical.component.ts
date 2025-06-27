@@ -103,13 +103,8 @@ export class BPhysicalComponent {
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
-
   
-
-
-  // --- Beneficios del mes ---
-  benefits: Benefit[] = [
-  ];
+  benefits: Benefit[] = [];
 
 
 

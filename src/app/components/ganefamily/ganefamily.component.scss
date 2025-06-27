@@ -37,7 +37,7 @@
     100% { transform: translateY(0px); }
 }
 
-// ✨ CORRECCIÓN: Se quita la transición de opacidad para que aparezcan al instante
+// ✨ : Se quita la transición de opacidad para que aparezcan al instante
 @keyframes flyAcross {
     0% {
         transform: translateX(-10vw) translateY(10vh) rotate(-15deg);

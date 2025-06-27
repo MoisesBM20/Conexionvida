@@ -53,9 +53,9 @@ export class GanefamilyComponent {
   ];
   
   videos: Video[] = [
-    { title: 'Día de la Familia 2023', youtubeId: '_rAw5_jeZX0', thumbnailUrl: 'https://youtu.be/_rAw5_jeZX0' },
-    { title: 'Celebración de Fin de Año', youtubeId: '6gKV1zD-Arw', thumbnailUrl: 'https://youtu.be/6gKV1zD-Arw' },
-    { title: 'Actividades para Niños', youtubeId: 't4gjl-uw28g', thumbnailUrl: 'https://img.youtube.com/vi/t4gjl-uw28g/hqdefault.jpg' }
+    { title: 'Día de la Familia 2023', youtubeId: '_rAw5_jeZX0', thumbnailUrl: 'https://img.youtube.com/vi/_rAw5_jeZX0/hqdefault.jpg' },
+    { title: 'Celebración de Fin de Año', youtubeId: '6gKV1zD-Arw', thumbnailUrl: 'https://img.youtube.com/vi/6gKV1zD-Arw/hqdefault.jpg' },
+    { title: 'Actividades para Niños', youtubeId: 't4gjl-uw28g', thumbnailUrl: 'assets/images/GaneFamilia/ganefamilia.png' }
   ];
 
   constructor(private sanitizer: DomSanitizer, private renderer: Renderer2) { }
@@ -104,7 +104,7 @@ export class GanefamilyComponent {
     });
   }
 
-  // --- ✨ Lógica para el modal de imagen (con chequeo de arrastre) ---
+  // ---  Lógica para el modal de imagen (con chequeo de arrastre) ---
   onItemClick(imageUrl: string): void {
     // Solo abre el modal si no se estaba arrastrando
     if (!this.hasDragged) {

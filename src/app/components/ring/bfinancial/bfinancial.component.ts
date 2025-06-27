@@ -18,7 +18,7 @@ export interface ModalContent {
 export interface BenefitButton {
   icon: string;
   text: string;
-  modalData?: ModalContent; // Hacemos modalData opcional
+  modalData?: ModalContent; 
   action: (data?: ModalContent) => void;
 }
 

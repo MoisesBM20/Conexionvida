@@ -167,55 +167,76 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0rem;
         }
 
-        .dropdown-menu a {
-            display: grid;
-            grid-template-columns: 40px 1fr;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.6rem 0.75rem;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
+/* --- Bloque de código a MODIFICAR --- */
+
+.dropdown-menu a {
+  --menu-item-gap: 4.3rem; /* <-- Define el gap como una variable */
+
+  position: relative; 
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: center;
+  gap: var(--menu-item-gap); /* <-- Usa la variable aquí */
+  padding: 0rem 0.75rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  min-height: 72px;
+}
+.dropdown-menu a::after {
+  content: ''; 
+  position: absolute;
+  background-color: black;
+  width: 3px;
+  top: 25%;
+  height: 50%;
+  left: 80px; /* Pegada justo al borde del ícono */
+  
+  /* La posición ahora se calcula automáticamente usando la variable */
+}
 
         .dropdown-menu a:hover {
             background-color: #f0f4f8;
         }
 
         .item-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e9f2fc;
-            border-radius: 8px;
-        }
-
-        .item-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
+          /* Las propiedades originales de centrado ya están perfectas */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.6rem 0.001rem;
+      }
         .item-icon svg {
-            width: 24px;
-            height: 24px;
-            color: #0d6efd;
-        }
+          width: 24px;
+          height: 24px;
+          color: #0d6efd;
+      }
+/* --- Estilos para el contenedor de texto --- */
+.item-text {
+  display: flex;
+  flex-direction: column; /* Apila el título y la descripción verticalmente */
+  justify-content: center;
+  padding: 0.6rem 0.01rem;
+  gap: 2px; 
+}
 
-        .item-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #212529;
-            text-align: left;
-        }
 
-        .item-description {
-            font-size: 0.85rem;
-            color: #6c757d;
-            text-align: left;
-        }
+/* --- Estilos para el título --- */
+.item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #212529;
+  text-align: left;
+  /* margin-bottom: 4px; */
+}
+
+
+/* --- Estilos para la descripción (CORREGIDO) --- */
+.item-description {
+  font-size: 0.85rem;
+  color: #6c757d;
+  text-align: left;
+}

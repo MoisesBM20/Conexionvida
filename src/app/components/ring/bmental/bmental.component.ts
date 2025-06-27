@@ -28,7 +28,7 @@ export class BMentalComponent {
 
   isInfoModalVisible = false;
   isModalClosing = false; 
-  modalContent = { title: '', text: '', icon: '' };// Objeto para controlar el contenido del modal
+  modalContent = { title: '', text: '', icon: '' };
 
   private monthOrder = [
     'MES DE ENERO', 'MES DE FEBRERO', 'MES DE MARZO', 'MES DE ABRIL',

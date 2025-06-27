@@ -106,9 +106,9 @@ export class AgreementComponent implements AfterViewInit, OnDestroy {
   }
 
   closeModal(): void {
-    this.isModalClosing = true; // 1. Activa la animación de cierre
+    this.isModalClosing = true; // Activa la animación de cierre
 
-    // 2. Espera a que termine la animación (300ms) antes de ocultar el modal
+    // Espera a que termine la animación (300ms) antes de ocultar el modal
     setTimeout(() => {
       this.isModalVisible = false;
       this.isModalClosing = false; // Resetea el estado

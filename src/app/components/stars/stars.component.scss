@@ -91,14 +91,14 @@
     padding: 0 50px;
 }
 .photo-viewport {
-    overflow-x: scroll; // Se usa scroll para el arrastre
+    overflow-x: scroll; 
     cursor: grab;
-    scrollbar-width: none; // Oculta la barra de scroll
+    scrollbar-width: none; 
     &::-webkit-scrollbar { display: none; }
     
     &.is-dragging {
         cursor: grabbing;
-        scroll-behavior: auto; // Movimiento directo durante el arrastre
+        scroll-behavior: auto; 
     }
 }
 .photo-track {

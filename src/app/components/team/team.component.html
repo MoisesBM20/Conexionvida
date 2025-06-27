@@ -1,97 +1,183 @@
-<div class="team-header">
-    <h1>Organigrama</h1>
-    <p>Conoce al equipo de Cultura y Desarrollo</p>
-</div>
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <div class="team-header">
+      <h1>ORGANIGRAMA</h1>
+      <p>Buscamos el mejor talento para la organización</p>
+  </div>
+  <div class="team-page-container">
+      <div class="org-main-layout">
+          <!-- Organigrama -->
+          <div class="org-container">
+              <!-- SVG para dibujar las líneas conectoras -->
+              <svg class="org-lines" viewBox="0 0 1100 850" preserveAspectRatio="none">
+                  <!-- Director a Jefe -->
+                  <path d="M 550 850 V 610" />
+                  <!-- Jefe a Coordinadores -->
+                  <path d="M 260 460 V 580 H 800" />
+                  <path d="M 820 460 V 580 H 500" />
 
-<div class="org-chart">
-    
-    <!-- Nivel 1 (Más alto en jerarquía, se muestra abajo) -->
-    <div class="member-card">
-        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-        <h3 class="name">Frank Medina</h3>
-        <p class="role">Director General</p>
-        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> f.medina#example.com</p><p><strong>Teléfono:</strong> +57 300 123 4567</p></div>
-    </div>
-    
-    <!-- Nivel 2 -->
-    <div class="member-card">
-        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-        <h3 class="name">Ximena Garcés</h3>
-        <p class="role">Jefe de Cultura y Desarrollo</p>
-        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> x.garces#example.com</p><p><strong>Hobbies:</strong> Lectura, senderismo.</p></div>
-    </div>
-    <!-- Nivel 3 (Coordinadores) -->
-    <ul>
-        <li>
-            <div class="member-card">
-                <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                <h3 class="name">M. Alexandra Valencia</h3>
-                <p class="role">Coordinadora de Atracción</p>
-                 <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> m.valencia#example.com</p><p><strong>Área:</strong> Atracción de Talento</p></div>
-            </div>
-            <!-- Nivel 4 (Equipo de Atracción) -->
-            <ul>
-                <li>
-                    <div class="member-card">
-                        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                        <h3 class="name">Esperanza Lasso E.</h3>
-                        <p class="role">Analista de Atracción</p>
-                        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> e.lasso#example.com</p></div>
-                    </div>
-                </li>
-                <li>
-                     <div class="member-card">
-                        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                        <h3 class="name">Adriana Maria Ordoñez</h3>
-                        <p class="role">Asistente de Atracción</p>
-                        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> a.ordoñez#example.com</p></div>
-                    </div>
-                    <!-- Nivel 5 (Equipo de Asistente) -->
-                    <ul>
-                        <li>
-                            <div class="member-card">
-                                <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                                <h3 class="name">Yesid Ortiz Hernandez</h3>
-                                <p class="role">Auxiliar de Atracción</p>
-                                <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> y.ortiz#example.com</p></div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <ul>
-            <li>
-              <div class="member-card">
-                <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                <h3 class="name">Diana Katherine Ortega</h3>
-                <p class="role">Coord. Bienestar y Desarrollo</p>
-                <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> d.ortiz#example.com</p><p><strong>Área:</strong> Bienestar y Desarrollo</p></div>
+                  <!-- Coord. Atracción a su equipo -->
+                  
+                  <!-- LINEA HORIZONTAL DE ASISTENTE A ANALISTA DE ATRACCION -->
+                  <path d="M 400 250 H 175" />
+                  
+                  <!-- De asistente de atraccion a auxiliar -->
+                  <!--<path d="M 130 170 V 60" /> -->
+                  <path d="M 267 390 V 60 H 210" />
+
+                  <!-- L que baja al Analista de Bienestar -->
+                  <path d="M 680 305 V 430 H 800" />
+
+                  <!-- Línea que baja al Aprendiz -->
+                  <path d="M 1030 250 H 775" />
+
+              </svg>
+
+              <!-- Todas las tarjetas de miembro se colocan aquí, sin listas anidadas -->
+              <div
+                  id="director-general"
+                  class="member-card"
+                  (click)="selectMember('director-general')"
+                  [class.selected]="selectedMember === 'director-general'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo" />
+                  <h3 class="name">Frank Medina</h3>
+                  <p class="role">Director General</p>
               </div>
 
-              <!-- Nivel 4 (Equipo de Bienestar) -->
-              <ul>
-                <li>
-                  <ul>
-                    <li>
-                      <div class="member-card">
-                        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                        <h3 class="name">Diana Carolina Osorio</h3>
-                        <p class="role">Analista de Bienestar y Desarrollo</p>
-                        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> d.bolaños#example.com</p></div>
+              <div
+                  id="jefe-cultura"
+                  class="member-card"
+                  (click)="selectMember('jefe-cultura')"
+                  [class.selected]="selectedMember === 'jefe-cultura'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Ximena Garcés</h3>
+                  <p class="role">Jefe de Cultura y Desarrollo</p>
+              </div>
+
+              <div
+                  id="coord-atraccion"
+                  class="member-card"
+                  (click)="selectMember('coord-atraccion')"
+                  [class.selected]="selectedMember === 'coord-atraccion'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">M. Alexandra Valencia</h3>
+                  <p class="role">Coordinadora de Atracción</p>
+              </div>
+
+              <div
+                  id="coord-bienestar"
+                  class="member-card"
+                  (click)="selectMember('coord-bienestar')"
+                  [class.selected]="selectedMember === 'coord-bienestar'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Diana Katherine Ortega</h3>
+                  <p class="role">Coord. Bienestar y Desarrollo</p>
+              </div>
+              
+              <div
+                  id="asistente-atraccion"
+                  class="member-card"
+                  (click)="selectMember('asistente-atraccion')"
+                  [class.selected]="selectedMember === 'asistente-atraccion'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Adriana Maria Ordoñez</h3>
+                  <p class="role">Asistente de Atracción</p>
+              </div>
+
+              <div
+                  id="analista-atraccion"
+                  class="member-card"
+                  (click)="selectMember('analista-atraccion')"
+                  [class.selected]="selectedMember === 'analista-atraccion'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Esperanza Lasso E.</h3>
+                  <p class="role">Analista de Atracción</p>
+              </div>
+              
+              <div
+                  id="auxiliar-atraccion"
+                  class="member-card"
+                  (click)="selectMember('auxiliar-atraccion')"
+                  [class.selected]="selectedMember === 'auxiliar-atraccion'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Yesid Ortiz Hernandez</h3>
+                  <p class="role">Auxiliar de Atracción</p>
+              </div>
+              
+              <div
+                  id="analista-bienestar"
+                  class="member-card"
+                  (click)="selectMember('analista-bienestar')"
+                  [class.selected]="selectedMember === 'analista-bienestar'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Diana Carolina Osorio</h3>
+                  <p class="role">Analista de Bienestar y Desarrollo</p>
+              </div>
+
+              <div
+                  id="aprendiz-bienestar"
+                  class="member-card"
+                  (click)="selectMember('aprendiz-bienestar')"
+                  [class.selected]="selectedMember === 'aprendiz-bienestar'"
+              >
+                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <h3 class="name">Aprendiz</h3>
+                  <p class="role">Aprendiz de Bienestar y Desarrollo</p>
+              </div>
+          </div>
+
+          <!-- Panel de información -->
+          <div class="info-panel" [@panelAnimation]>
+              <ng-container *ngIf="selectedMember; else generalInfo">
+                  <img 
+                      [src]="memberInfo[selectedMember]?.photo" 
+                      [alt]="memberInfo[selectedMember]?.name" 
+                      class="photo" 
+                      style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 18px; display: block; border: 4px solid #e0e8f3; object-fit: cover;" 
+                  />
+                  <h2>{{ memberInfo[selectedMember]?.name }}</h2>
+                  <h4>{{ memberInfo[selectedMember]?.role }}</h4>
+                  <p style="color:#333; font-size:1.05rem; margin-bottom:18px; min-height:48px;">{{ memberInfo[selectedMember]?.description }}</p>
+                  <div class="info-list">
+                      <div class="info-item">
+                          <span class="info-icon"><i class="fas fa-envelope"></i></span>
+                          <span><strong>Email:</strong> {{ memberInfo[selectedMember]?.email }}</span>
                       </div>
-                    </li>
-                    <li></li> <!-- Espacio en blanco -->
-                    <li>
-                      <div class="member-card">
-                        <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                        <h3 class="name">Aprendiz</h3>
-                        <p class="role">Aprendiz de Bienestar y Desarrollo</p>
-                        <div class="info-popup"><h4>Información de Contacto</h4><p><strong>Email:</strong> aprendiz#example.com</p></div>
+                      <div class="info-item">
+                          <span class="info-icon"><i class="fas fa-phone"></i></span>
+                          <span><strong>Teléfono:</strong> {{ memberInfo[selectedMember]?.phone }}</span>
                       </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
+                  </div>
+                  <button (click)="selectedMember = null">Cerrar</button>
+              </ng-container>
+              <ng-template #generalInfo>
+                  <div style="width:80px; height:80px; margin:0 auto 18px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#e0e8f3;">
+                      <svg width="48" height="48" fill="#005A9C" viewBox="0 0 24 24">
+                          <circle cx="12" cy="8" r="4"/>
+                          <path d="M12 14c-5 0-8 2.5-8 4.5V21h16v-2.5c0-2-3-4.5-8-4.5z"/>
+                      </svg>
+                  </div>
+                  <h3>Equipo de Cultura & Desarrollo</h3>
+                  <h4>Conozca más del departamento</h4>
+                  <p style="color:#333; font-size:1.05rem; margin-bottom:18px; min-height:48px;">
+                      Selecciona un miembro del organigrama para ver su información detallada aquí.
+                  </p>
+                  <div class="info-list">
+                      <div class="info-item">
+                          <span>Conoce a nuestro equipo de trabajo y su estructura organizacional.</span>
+                      </div>
+                  </div>
+              </ng-template>
+          </div>
+      </div>
+  </div>
+
+</body>

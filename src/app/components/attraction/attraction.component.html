@@ -68,7 +68,7 @@
                         <ul><li *ngFor="let info of selectedVacancy.otherInfo">{{ info }}</li></ul>
                     </div>
                 </div>
-                <!-- ✨ CORRECCIÓN: Se añade el evento (click) para abrir el modal -->
+                <!--  : Se añade el evento (click) para abrir el modal -->
                 <div class="detail-image-flyer" (click)="openImageModal()">
                     <img [src]="selectedVacancy.imageUrl" [alt]="'Volante para ' + selectedVacancy.title">
                 </div>

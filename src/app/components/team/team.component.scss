@@ -1,21 +1,26 @@
+:root {
+    --line-color: #d1d9e0;
+    --primary-blue: #005A9C;
+    --background-color: #f4f7fc;
+    
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    //background-image: url(''); 
-    background-size: cover; /* Cubre todo el espacio */
-    background-position: center; /* Centra la imagen */
-    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 50px 20px;
-    box-sizing: border-box;
+    background-color: var(--background-color);
+    padding: 0 0 40px 0;
     color: #333;
 }
-/* --- ENCABEZADO DE LA PÁGINA --- */
+
+.team-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .team-header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 1px 5px 15px 20px;
     margin-bottom: 20px;
     background: linear-gradient(to right, #f4f7fc, #e5f0ff);
     border-radius: 0 0 20px 20px;
@@ -36,191 +41,306 @@ body {
     max-width: 600px;
     margin: 0 auto;
 }
-/* --- CONTENEDOR PRINCIPAL DEL ORGANIGRAMA --- */
-.org-chart {
-    display: flex;
-    flex-direction: column-reverse; /* Dibuja los elementos de abajo hacia arriba */
-    align-items: center;
-    text-align: center;
-}
 
-/* --- ESTRUCTURA DE NIVELES Y CONECTORES --- */
-.org-chart ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+/* ---  Contenedor Principal con CSS Grid --- */
+.org-container {
     position: relative;
-    display: flex;
-    justify-content: center;
-    gap: 0.5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, auto);
+    gap: 70px 20px; 
+    width: 100%;
+    max-width: 1100px; 
+    margin: 0 auto;
 }
 
-.org-chart li {
-    position: relative;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    padding: 0 10px;
-}
-
-/* --- ESTILOS DE CONECTORES (CORREGIDOS) --- */
-
-/* Línea vertical que baja de cada tarjeta de reporte */
-.org-chart li::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    border-left: 2px solid #b0bec5;
-    width: 0;
-    height: 20px;
-}
-
-/* Línea horizontal que une a los "hermanos" */
-.org-chart li::after {
-    content: '';
+/* ---  SVG para dibujar las líneas --- */
+.org-lines {
     position: absolute;
     top: 0;
     left: 0;
-    border-top: 2px solid #b0bec5;
     width: 100%;
-    height: 0;
+    height: 100%;
+    z-index: 1; 
+    pointer-events: none; 
 }
-
-/* Línea vertical que sube de la tarjeta del manager hacia sus reportes */
-.member-card {
-    margin-top: 40px; /* Da espacio para los conectores de los reportes */
+.org-lines path {
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6,6;
 }
-.member-card::before {
-     content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 20px;
-    background: #b0bec5;
-}
-
-/* --- LÓGICA PARA OCULTAR Y AJUSTAR CONECTORES --- */
-
-/* Oculta la línea que sube de los miembros sin reportes */
-.org-chart li > .member-card::before {
-    display: none;
-}
-
-/* Oculta la línea que baja de los miembros en el nivel más alto */
-.org-chart > ul > li::before {
-    display: none;
-}
-
-/* Ajusta las líneas horizontales para los extremos */
-.org-chart ul li:first-child::after {
-    left: 105%;
-    width: 50%;
-}
-.org-chart ul li:last-child::after {
-    right: 50%;
-    width: 50%;
-}
-.org-chart ul li:only-child::after {
-    display: none;
-}
-
-/* Oculta el conector del Manager de más alta jerarquía */
- .org-chart > .member-card::before {
-     display:none;
- }
-
 
 /* --- TARJETA DE CADA INTEGRANTE --- */
 .member-card {
     position: relative;
-    width: 160px; /* Un poco más ancho */
+    width: 140px;
+    height: 150px;
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 41, 83, 0.1);
-    padding: 15px;
+    padding: 12px 8px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 10;
-}
-
-.member-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0, 41, 83, 0.15);
-}
-
-.member-card .photo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-    border: 4px solid #e0e8f3;
-    object-fit: cover;
-}
-
-.member-card .name {
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #005A9C;
-    margin: 0;
-}
-
-.member-card .role {
-    font-weight: 400;
-    font-size: 0.75rem;
-    color: #5a738e;
-    min-height: 2.2em; /* Asegura espacio para dos líneas de texto */
+    z-index: 10; 
+    justify-self: center; 
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    text-align: center;
+    border-top: 5px solid #1b77b9;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(0, 41, 83, 0.15);
+        border-top: 5px solid #005A9C;
+    }
+
+    .photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 0 0 10px 0;
+        border: 4px solid #e0e8f3;
+        object-fit: cover;
+        display: block;
+    }
+    .name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--primary-blue);
+        margin: 0;
+    }
+    .role {
+        font-weight: 800;
+        font-size: 0.75rem;
+        color: #5a738e;
+        min-height: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
+
+/* --- Posicionamiento de cada tarjeta en la grilla --- */
+#director-general { grid-area: 5 / 1 / 6 / 5; }
+#jefe-cultura { grid-area: 4 / 1 / 5 / 5; }
+#coord-atraccion { grid-area: 3 / 1 / 4 / 3; }
+#coord-bienestar { grid-area: 3 / 3 / 4 / 5; }
+#asistente-atraccion { grid-area: 2 / 1; }
+#analista-atraccion { grid-area: 2 / 2; }
+#analista-bienestar { grid-area: 2 / 3; }
+#aprendiz-bienestar { grid-area: 2 / 4; }
+#auxiliar-atraccion { grid-area: 1 / 1; }
 
 /* --- TARJETA DE INFORMACIÓN PERSONAL (APARECE AL HACER HOVER) --- */
 .info-popup {
-    position: absolute;
-    top: calc(100% + 15px);
-    left: 50%;
-    width: 250px;
-    background: #005A9C;
-    color: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    z-index: 20;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-    transform: translateX(-50%) translateY(-10px);
+position: absolute;
+top: calc(100% + 15px);
+left: 50%;
+width: 250px;
+background: #005A9C;
+color: #ffffff;
+padding: 15px;
+border-radius: 10px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+z-index: 20;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+transform: translateX(-50%) translateY(-10px);
 }
 
 .member-card:hover .info-popup {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+opacity: 1;
+visibility: visible;
+transform: translateX(-50%) translateY(0);
 }
 
 .info-popup::after {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 8px;
-    border-style: solid;
-    border-color: transparent transparent #005A9C transparent;
+content: '';
+position: absolute;
+bottom: 100%;
+left: 50%;
+transform: translateX(-50%);
+border-width: 8px;
+border-style: solid;
+border-color: transparent transparent #005A9C transparent;
 }
 
 .info-popup h4 {
-    margin: 0 0 10px 0;
-    font-size: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 5px;
+margin: 0 0 10px 0;
+font-size: 1rem;
+border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+padding-bottom: 5px;
 }
 
 .info-popup p {
-    font-size: 0.85rem;
-    margin: 5px 0;
-    line-height: 1.4;
+font-size: 0.85rem;
+margin: 5px 0;
+line-height: 1.4;
+}
+
+.org-main-layout {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+margin-right: 0;
+justify-content: center;
+}
+
+.org-container {
+flex: 1;
+}
+
+.info-panel {
+width: 350px;
+background: linear-gradient(135deg, #e5f0ff 0%, #f4f7fc 100%);
+border-radius: 18px;
+box-shadow: 0 8px 32px rgba(0, 41, 83, 0.13), 0 1.5px 0 #005A9C inset;
+padding: 36px 28px 28px 28px;
+border: 1.5px solid #e0e8f3;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+transition: box-shadow 0.2s, border 0.2s;
+position: fixed;
+right: 30px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 100;
+animation: fadeInPanel 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+.info-panel h2 {
+color: #005A9C;
+font-size: 1.7rem;
+font-weight: 700;
+margin-bottom: 4px;
+letter-spacing: 0.5px;
+}
+
+.info-panel h4 {
+color: #5a738e;
+font-size: 1.15rem;
+font-weight: 600;
+margin-bottom: 20px;
+letter-spacing: 0.2px;
+}
+
+.info-panel .info-list {
+width: 100%;
+margin-bottom: 18px;
+}
+
+.info-panel .info-item {
+display: flex;
+align-items: center;
+font-size: 1.05rem;
+color: #333;
+margin-bottom: 12px;
+gap: 10px;
+}
+
+.info-panel .info-icon {
+width: 22px;
+height: 22px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #005A9C;
+background: #e0e8f3;
+border-radius: 50%;
+font-size: 1.1rem;
+}
+
+.info-panel button {
+margin-top: 18px;
+background: linear-gradient(90deg, #005A9C 60%, #005A9C 100%);
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 10px 28px;
+font-size: 1.08rem;
+font-weight: 600;
+cursor: pointer;
+box-shadow: 0 2px 8px rgba(0,90,156,0.08);
+transition: background 0.2s, transform 0.1s;
+}
+.info-panel button:hover {
+background: linear-gradient(90deg, #003f6d 60%, #005A9C 100%);
+transform: translateY(-2px) scale(1.03);
+}
+
+.member-card.selected {
+border: 2px solid #005A9C;
+box-shadow: 0 0 0 4px #e5f0ff;
+}
+
+/* Añade animación fade-in a info-panel */
+@keyframes fadeInPanel {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Animación para transición entre integrantes */
+.info-panel.fade-out {
+  animation: fadeOutPanel 0.3s forwards;
+}
+.info-panel.fade-in {
+  animation: fadeInPanel 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes fadeOutPanel {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .org-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 10px;
+    max-width: 98vw;
+  }
+  .member-card {
+    width: 110px;
+    height: 120px;
+    padding: 8px 4px;
+  }
+  .member-card .photo {
+    width: 44px;
+    height: 44px;
+  }
+  .team-header {
+    padding: 1px 2px 10px 8px;
+  }
+  .team-header h1 {
+    font-size: 1.3rem;
+  }
+  .info-panel {
+    position: static;
+    width: 90vw;
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    right: unset;
+    top: unset;
+    transform: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 41, 83, 0.10);
+    padding: 24px 12px 18px 12px;
+    z-index: 100;
+  }
 }
