@@ -25,73 +25,65 @@ export class TeamComponent {
     'director-general': {
       name: 'Frank Medina',
       role: 'Director General',
-      email: 'f.medina#example.com',
-      phone: '+57 300 123 4567',
-      photo: './assets/images/personaje.png',
+      email: 'fgmedina@gane.com.co',
+      phone: '+57 321 816 5890',
+      photo: './assets/images/team/frank.jpeg',
       description: 'Responsable de la dirección general y la toma de decisiones estratégicas de la organización.'
     },
     'jefe-cultura': {
       name: 'Ximena Garcés',
       role: 'Jefe de Cultura y Desarrollo',
-      email: 'x.garces#example.com',
-      phone: '+57 300 234 5678',
-      photo: './assets/images/personaje.png',
+      email: 'sxgarces@gane.com.co',
+      phone: '+57 316 876 7528',
+      photo: './assets/images/team/Ximena.jpeg',
       description: 'Lidera la cultura organizacional y el desarrollo del talento humano.'
     },
     'coord-atraccion': {
       name: 'M. Alexandra Valencia',
       role: 'Coordinadora de Atracción',
-      email: 'a.valencia#example.com',
-      phone: '+57 300 345 6789',
-      photo: './assets/images/personaje.png',
+      email: 'mavalencia@gane.com.co',
+      phone: '+57 318 306 2201',
+      photo: './assets/images/team/Alexa.png',
       description: 'Coordina los procesos de atracción y selección de talento.'
     },
     'coord-bienestar': {
       name: 'Diana Katherine Ortega',
       role: 'Coord. Bienestar y Desarrollo',
-      email: 'd.ortega#example.com',
-      phone: '+57 300 456 7890',
-      photo: './assets/images/personaje.png',
-      description: 'Encargada de los programas de bienestar y desarrollo para los colaboradores.'
+      email: 'dkortega@gane.com.co',
+      phone: '+57 318 373 1208',
+      photo: './assets/images/team/Diana.JPG',
+      description: 'Encargada de los programas de bienestar y desarrollo para los integrantes.'
     },
     'asistente-atraccion': {
       name: 'Adriana Maria Ordoñez',
       role: 'Asistente de Atracción',
-      email: 'a.ordonez#example.com',
-      phone: '+57 300 567 8901',
-      photo: './assets/images/personaje.png',
+      email: 'amordonez@gane.com.co',
+      phone: '+57 316 479 1922',
+      photo: './assets/images/team/Adriana.png',
       description: 'Apoya en la gestión y logística de los procesos de atracción de talento.'
     },
     'analista-atraccion': {
       name: 'Esperanza Lasso E.',
       role: 'Analista de Atracción',
-      email: 'e.lasso#example.com',
-      phone: '+57 300 678 9012',
-      photo: './assets/images/personaje.png',
+      email: 'elasso@gane.com.co',
+      phone: '+57 317 365 1164',
+      photo: './assets/images/team/lasso.png',
       description: 'Analiza y ejecuta procesos de selección y reclutamiento.'
     },
-    'auxiliar-atraccion': {
-      name: 'Yesid Ortiz Hernandez',
-      role: 'Auxiliar de Atracción',
-      email: 'y.ortiz#example.com',
-      phone: '+57 300 789 0123',
-      photo: './assets/images/personaje.png',
-      description: 'Brinda soporte administrativo en el área de atracción.'
-    },
     'analista-bienestar': {
-      name: 'Diana Carolina Osorio',
+      name: 'Yecid Ortiz Hernandez',
       role: 'Analista de Bienestar y Desarrollo',
-      email: 'd.osorio#example.com',
-      phone: '+57 300 890 1234',
-      photo: './assets/images/personaje.png',
+      email: 'yortiz@gane.com.co',
+      phone: '+57 317 427 6365',
+      photo: './assets/images/team/Yesid.png',
       description: 'Implementa y evalúa programas de bienestar y desarrollo.'
     },
     'aprendiz-bienestar': {
       name: 'Aprendiz',
       role: 'Aprendiz de Bienestar y Desarrollo',
-      email: 'aprendiz#example.com',
-      phone: '+57 300 901 2345',
-      photo: './assets/images/personaje.png',
+      email: 'cvcasamachin@gane.com.co',
+      phone: '',
+      photo: './assets/images/team/Claudia.png',
       description: 'Apoya en las actividades de bienestar y desarrollo organizacional.'
     }
   };

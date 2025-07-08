@@ -1,93 +1,94 @@
+<!-- Encabezado de la Página -->
 <div class="team-header">
-    <h1>Atraccion</h1>
+    <h1>Atracción</h1>
     <p>Buscamos el mejor talento para la organización</p>
-</div>
-
-<div class="attraction-container">
+  </div>
+  
+  <!-- Contenedor Principal con Layout de Dos Columnas -->
+  <div class="attraction-container">
     
-    <!-- Columna Izquierda -->
+    <!-- Columna Izquierda: Lista de Items -->
     <div class="list-column">
-        <div class="view-switcher">
-            <button class="tab-button" [class.active]="activeView === 'vacancies'" (click)="setView('vacancies')">
-                Vacantes Disponibles
-            </button>
-            <button class="tab-button" [class.active]="activeView === 'promotions'" (click)="setView('promotions')">
-                Promociones
-            </button>
-        </div>
-        <div class="items-list">
-            <ng-container *ngIf="activeView === 'vacancies'">
-                <div class="vacancy-card" *ngFor="let vacancy of vacancies" (click)="selectVacancy(vacancy)" [class.active]="vacancy.id === selectedVacancy?.id">
-                    <h2 class="title">{{ vacancy.title }}</h2>
-                    <span class="company">{{ vacancy.company }}</span>
-                    <span class="location">{{ vacancy.location }}</span>
-                    <span class="salary">{{ vacancy.salary }}</span>
-                    <p class="posted-time">{{ vacancy.postedTime }}</p>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="activeView === 'promotions'">
-                <div class="promotion-card" *ngFor="let promo of promotions" (click)="selectPromotion(promo)" [class.active]="promo.id === selectedPromotion?.id">
-                    <img [src]="promo.imageUrl" [alt]="'Foto de ' + promo.name" class="promo-photo">
-                    <div class="promo-details">
-                        <p class="name">{{ promo.name }}</p>
-                        <p class="new-role">Promovido a {{ promo.newRole }}</p>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
+      <!-- Selector de Pestañas (Vacantes / Promociones) -->
+      <div class="view-switcher">
+        <button class="tab-button" [class.active]="activeView === 'vacancies'" (click)="setView('vacancies')">
+          Vacantes Disponibles
+        </button>
+        <button class="tab-button" [class.active]="activeView === 'promotions'" (click)="setView('promotions')">
+          Promociones
+        </button>
+      </div>
+  
+      <!-- Lista Dinámica de Items -->
+      <div class="items-list">
+        <!-- Vista de Vacantes -->
+        <ng-container *ngIf="activeView === 'vacancies'">
+          <div class="vacancy-card" *ngFor="let vacancy of vacancies" (click)="selectVacancy(vacancy)" [class.active]="vacancy.id === selectedVacancy?.id">
+            <h2 class="title">{{ vacancy.title }}</h2>
+            <span class="company">{{ vacancy.company }}</span>
+            <span class="location">{{ vacancy.location }}</span>
+            <span class="salary">{{ vacancy.salary }}</span>
+            <p class="posted-time">{{ vacancy.postedTime }}</p>
+          </div>
+        </ng-container>
+  
+        <!-- Vista de Promociones -->
+        <ng-container *ngIf="activeView === 'promotions'">
+          <!-- Itera sobre los períodos de promoción (quincenas) -->
+          <div class="promotion-period-card" *ngFor="let period of promotionPeriods" (click)="selectPromotionPeriod(period)" [class.active]="period.id === selectedPromotionPeriod?.id">
+            <h2 class="period-title">{{ period.periodName }}</h2>
+            <p class="people-count">{{ period.promotedPeople.length }} Promovido(s)</p>
+          </div>
+        </ng-container>
+      </div>
     </div>
-
-    <!-- Columna Derecha -->
+  
+    <!-- Columna Derecha: Vista de Detalle -->
     <div class="detail-column">
-        <!-- Detalle de la Vacante -->
-        <div class="detail-view" *ngIf="activeView === 'vacancies' && selectedVacancy">
-            
-            <div class="detail-header">
-                <h1 class="title">{{ selectedVacancy.title }}</h1>
-                <p class="company">{{ selectedVacancy.company }}</p>
-                <p class="location">{{ selectedVacancy.location }}</p>
-            </div>
-            
-            <div class="detail-actions">
-                <a [href]="'mailto:' + selectedVacancy.contactEmail + '?subject=Aplicación a la vacante: ' + selectedVacancy.title" class="action-button primary">Postularse</a>
-                <button type="button" class="action-button secondary" (click)="openImageModal()">Ver Volante</button>
-            </div>
-
-            <div class="vacancy-detail-layout">
-                <div class="detail-info">
-                    <div class="detail-section">
-                        <h3>Descripción del Puesto</h3>
-                        <p>{{ selectedVacancy.description }}</p>
-                    </div>
-                    <div class="detail-section">
-                        <h3>Requerimientos</h3>
-                        <ul><li *ngFor="let req of selectedVacancy.requirements">{{ req }}</li></ul>
-                    </div>
-                    <div class="detail-section">
-                        <h3>Condiciones</h3>
-                        <ul><li *ngFor="let info of selectedVacancy.otherInfo">{{ info }}</li></ul>
-                    </div>
-                </div>
-                <!--  : Se añade el evento (click) para abrir el modal -->
-                <div class="detail-image-flyer" (click)="openImageModal()">
-                    <img [src]="selectedVacancy.imageUrl" [alt]="'Volante para ' + selectedVacancy.title">
-                </div>
-            </div>
+      <!-- Detalle de la Vacante Seleccionada -->
+      <div class="detail-view" *ngIf="activeView === 'vacancies' && selectedVacancy">
+        <div class="detail-header">
+          <h1 class="title">{{ selectedVacancy.title }}</h1>
+          <p class="company">{{ selectedVacancy.company }}</p>
+          <p class="location">{{ selectedVacancy.location }}</p>
         </div>
-
-        <!-- Detalle de la Promoción -->
-        <div class="promotion-detail-view" *ngIf="activeView === 'promotions' && selectedPromotion">
-             <img [src]="selectedPromotion.imageUrl" [alt]="'Foto de ' + selectedPromotion.name" class="promo-detail-photo">
-             <h2 class="promo-congrats">¡Felicidades!</h2>
-             <p class="promo-name">{{ selectedPromotion.name }}</p>
-             <p class="promo-role-change">Por tu promoción de {{ selectedPromotion.previousRole }} a <strong>{{ selectedPromotion.newRole }}</strong></p>
+        
+        <div class="detail-actions">
+          <a [href]="'mailto:' + selectedVacancy.contactEmail + '?subject=Aplicación a la vacante: ' + selectedVacancy.title" class="action-button primary">Postularse</a>
+          <button type="button" class="action-button secondary" (click)="openImageModal()">Ver Volante</button>
         </div>
+  
+        <div class="vacancy-detail-layout">
+          <div class="detail-info">
+            <div class="detail-section">
+              <h3>Descripción del Puesto</h3>
+              <p>{{ selectedVacancy.description }}</p>
+            </div>
+            <div class="detail-section">
+              <h3>Requerimientos</h3>
+              <ul><li *ngFor="let req of selectedVacancy.requirements">{{ req }}</li></ul>
+            </div>
+            <div class="detail-section">
+              <h3>Condiciones</h3>
+              <ul><li *ngFor="let info of selectedVacancy.otherInfo">{{ info }}</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Detalle del Período de Promoción Seleccionado -->
+      <div class="promotion-detail-view" *ngIf="activeView === 'promotions' && selectedPromotionPeriod">
+          <h2 class="promo-congrats">¡Felicidades a los promovidos de la {{ selectedPromotionPeriod.periodName }}!</h2>
+          <!-- Muestra la imagen general para el período quincenal -->
+          <img [src]="selectedPromotionPeriod.periodImageUrl" [alt]="'Promovidos de ' + selectedPromotionPeriod.periodName" class="promo-period-image">
+      </div>
     </div>
-</div>
-
-<!-- Modal para visualizar la imagen -->
-<div class="image-modal-backdrop" *ngIf="isImageModalVisible" (click)="closeImageModal()">
+  </div>
+  
+  <!-- Modal para visualizar la imagen del volante de la vacante -->
+  <div class="image-modal-backdrop" *ngIf="isImageModalVisible" (click)="closeImageModal()">
     <div class="image-modal-content">
-        <img [src]="selectedVacancy?.imageUrl" [alt]="'Volante para ' + selectedVacancy?.title">
+      <img [src]="selectedVacancy?.imageUrl" [alt]="'Volante para ' + selectedVacancy?.title">
     </div>
-</div>
+  </div>
+  

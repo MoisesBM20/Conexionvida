@@ -61,22 +61,16 @@ export class BPhysicalComponent {
 
     posts: TimelinePost[] = [
       {
-        date: 'MES DE ABRIL',
-        imageUrl: 'assets/images/ring/Bphysical/aereorumba.jpg', 
-        altText: 'Volante de Actividad Física',
-        description: ' ¡Participa en nuestras actividades de bienestar físico! Este mes, te invitamos a unirte a nuestras sesiones de aerorumba para mantenerte activo y saludable.'
-      },
-      {
         date: 'MES DE JUNIO',
         imageUrl: 'assets/images/ring/Bphysical/correr.jpg', 
         altText: '',
         description: '¡CORRE Y GANE!'
       },
       {
-        date: 'MES DE JUNIO',
-        imageUrl: 'assets/images/ring/Bphysical/zumba.jpg', 
+        date: 'MES DE JULIO',
+        imageUrl: '', 
         altText: '',
-        description: 'Desde nuestra iniciativa CONEXIÓN VIDA el bienestar físico es un pilar fundamental para llevar una vida saludable, por eso te invitamos a vivir esta clase con nosotros!'
+        description: 'Proximamente actividades!'
       },
     ];
 

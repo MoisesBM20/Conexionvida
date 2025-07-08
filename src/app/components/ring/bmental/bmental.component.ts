@@ -60,6 +60,12 @@ export class BMentalComponent {
   }
   posts: TimelinePost[] = [
     {
+      date: 'MES DE JULIO',
+      imageUrl: '', // Reemplaza con tu imagen
+      altText: 'Proximamente actividades!',
+      description: ''
+    },
+    {
       date: 'MES DE JUNIO',
       imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/DIANA-JULI-ESPERANZA-644x446.jpg', // Reemplaza con tu imagen
       altText: 'Beneficiarias',
@@ -68,30 +74,6 @@ export class BMentalComponent {
     {
       date: 'MES DE JUNIO',
       imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/MACKYNG-644x446.jpg',
-      altText: '',
-      description: ''
-    },
-    {
-      date: 'MES DE SEPTIEMBRE',
-      imageUrl: '',
-      altText: '',
-      description: ''
-    },
-    {
-      date: 'MES DE OCTUBRE',
-      imageUrl: '',
-      altText: '',
-      description: ''
-    },
-    {
-      date: 'MES DE NOVIEMBRE',
-      imageUrl: '',
-      altText: '',
-      description: ''
-    },
-    {
-      date: 'MES DE DICIEMBRE',
-      imageUrl: '',
       altText: '',
       description: ''
     }

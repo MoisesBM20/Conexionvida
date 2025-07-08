@@ -4,4 +4,14 @@
         <h1>ORGANIGRAMA</h1>
         <p>Buscamos el mejor talento para la organización</p>
     </div>
+
+    <button class="btn-icon-blue" (click)="showLoader()">
+      Mostrar animación de carga
+    </button>
+
+    <div class="custom-loader-backdrop" *ngIf="loading">
+      <div class="custom-loader">
+        <img *ngIf="showGif" [src]="'assets/g_15_.gif?'+gifKey" alt="Cargando..." class="gane-loader-gif" />
+      </div>
+    </div>
 </body>

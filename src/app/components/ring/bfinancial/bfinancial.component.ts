@@ -60,8 +60,8 @@ export class BFinancialComponent {
   posts: TimelinePost[] = [
     {
       date: 'MES DE JULIO',
-      imageUrl: './assets/images/ring/bfinancial/ahorro.jpg',
-      altText: 'Charla de Ahorro',
+      imageUrl: 'Charla de Ahorro',
+      altText: 'Proximamente eventos!',
       description: 'Aprende a gestionar tus finanzas personales y a planificar tu futuro con nuestra charla sobre la importancia del ahorro.'
     },
     {

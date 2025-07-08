@@ -228,3 +228,419 @@
         object-fit: contain; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
 }
+
+.shooting-stars {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shooting-star {
+  position: absolute;
+  left: -10%;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 80%, #ffe066 95%, #ff8c00 100%);
+  opacity: 0.8;
+  border-radius: 2px;
+  filter: drop-shadow(0 0 8px #fff);
+  animation: shooting-star-horizontal 2.2s linear infinite;
+}
+
+// --- Variantes para estrellas que caen hacia abajo ---
+.shooting-star.down {
+  background: linear-gradient(110deg, rgba(255,255,255,0) 0%, #fff 70%, #ffe066 90%, #ff8c00 100%);
+  animation: shooting-star-down 2.5s linear infinite;
+  filter: drop-shadow(0 0 16px #ffe066) drop-shadow(0 0 32px #fff);
+}
+
+// --- Variantes para estrellas grandes y luminosas ---
+.shooting-star.big {
+  width: 180px;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 70%, #ffe066 90%, #ff8c00 100%);
+  opacity: 1;
+  filter: drop-shadow(0 0 24px #fff) drop-shadow(0 0 48px #ffe066);
+}
+
+// --- Variantes para estrellas grandes que caen ---
+.shooting-star.big.down {
+  width: 200px;
+  height: 5px;
+  background: linear-gradient(110deg, rgba(255,255,255,0) 0%, #fff 60%, #ffe066 85%, #ff8c00 100%);
+  opacity: 1;
+  filter: drop-shadow(0 0 32px #fff) drop-shadow(0 0 64px #ffe066);
+  animation: shooting-star-down 2.8s linear infinite;
+}
+
+// --- Posiciones, delays y tipos ---
+.shooting-star:nth-child(1) { top: 10%; animation-delay: 0s; animation-duration: 2.2s; }
+.shooting-star:nth-child(2) { top: 20%; animation-delay: 0.5s; animation-duration: 2.5s; width: 100px; }
+.shooting-star:nth-child(3) { top: 30%; animation-delay: 1s; animation-duration: 2.1s; width: 110px; }
+.shooting-star:nth-child(4) { top: 40%; animation-delay: 1.5s; animation-duration: 2.7s; width: 130px; }
+.shooting-star:nth-child(5) { top: 50%; animation-delay: 2s; animation-duration: 2.3s; width: 90px; }
+.shooting-star:nth-child(6) { top: 60%; animation-delay: 2.5s; animation-duration: 2.6s; width: 115px; }
+.shooting-star:nth-child(7) { top: 70%; animation-delay: 3s; animation-duration: 2.4s; width: 105px; }
+.shooting-star:nth-child(8) { top: 80%; animation-delay: 3.5s; animation-duration: 2.8s; width: 125px; }
+.shooting-star:nth-child(9) { top: 25%; animation-delay: 4s; animation-duration: 2.2s; width: 95px; }
+.shooting-star:nth-child(10) { top: 65%; animation-delay: 4.5s; animation-duration: 2.5s; width: 110px; }
+
+// Haz que algunas sean descendentes y/o grandes
+.shooting-star:nth-child(3),
+.shooting-star:nth-child(7) {
+  @extend .down;
+}
+.shooting-star:nth-child(5) {
+  @extend .big;
+}
+.shooting-star:nth-child(8) {
+  @extend .big;
+  @extend .down;
+}
+
+// --- Keyframes ---
+@keyframes shooting-star-horizontal {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110vw) translateY(30px) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shooting-star-down {
+  0% {
+    transform: translateX(0) translateY(0) rotate(20deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(80vw) translateY(60vh) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+// --- Más estrellas fugaces: posiciones y delays ---
+.shooting-star:nth-child(11) { top: 15%; animation-delay: 5s; animation-duration: 2.1s; width: 100px; }
+.shooting-star:nth-child(12) { top: 35%; animation-delay: 5.5s; animation-duration: 2.3s; width: 120px; }
+.shooting-star:nth-child(13) { top: 55%; animation-delay: 6s; animation-duration: 2.5s; width: 110px; }
+.shooting-star:nth-child(14) { top: 75%; animation-delay: 6.5s; animation-duration: 2.2s; width: 130px; }
+.shooting-star:nth-child(15) { top: 85%; animation-delay: 7s; animation-duration: 2.6s; width: 140px; }
+.shooting-star:nth-child(16) { top: 5%; animation-delay: 7.5s; animation-duration: 2.4s; width: 90px; }
+.shooting-star:nth-child(17) { top: 45%; animation-delay: 8s; animation-duration: 2.7s; width: 125px; }
+.shooting-star:nth-child(18) { top: 65%; animation-delay: 8.5s; animation-duration: 2.3s; width: 115px; }
+
+// Haz que algunas sean descendentes y/o grandes
+.shooting-star:nth-child(12),
+.shooting-star:nth-child(15) {
+  @extend .down;
+}
+.shooting-star:nth-child(13) {
+  @extend .big;
+}
+.shooting-star:nth-child(17) {
+  @extend .big;
+  @extend .down;
+}
+
+// --- Cometa animado ---
+.comet {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 40% 60%, #fff 60%, #a259ff 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 32px 8px #a259ff, 0 0 64px 16px #fff;
+  z-index: 3;
+  animation: comet-fly 12s linear infinite;
+  opacity: 0.95;
+
+  .comet-fire {
+    content: "";
+    position: absolute;
+    left: -70px;
+    top: 4px;
+    width: 70px;
+    height: 10px;
+    background: linear-gradient(
+      90deg,
+      rgba(162,89,255,0) 0%,
+      #a259ff 30%,
+      #fff 60%,
+      rgba(255,255,255,0) 100%
+    );
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.7;
+    z-index: 1;
+    transform: rotate(-8deg);
+    pointer-events: none;
+    animation: comet-fire-flicker 1.2s infinite alternate;
+    display: block;
+  }
+  .comet-fire-thin {
+    content: "";
+    position: absolute;
+    left: -90px;
+    top: 8px;
+    width: 90px;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(162,89,255,0) 0%,
+      #a259ff 40%,
+      #fff 80%,
+      rgba(255,255,255,0) 100%
+    );
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.8;
+    z-index: 2;
+    transform: rotate(-8deg);
+    pointer-events: none;
+    animation: comet-fire-flicker 1.2s infinite alternate;
+    display: block;
+  }
+}
+
+.comet-fire-thin {
+  content: "";
+  position: absolute;
+  left: -90px;
+  top: 8px;
+  width: 90px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(162,89,255,0) 0%,
+    #a259ff 40%,
+    #fff 80%,
+    rgba(255,255,255,0) 100%
+  );
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.8;
+  z-index: 2;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  animation: comet-fire-flicker 1.2s infinite alternate;
+  display: block;
+}
+
+// Rastro persistente del cometa
+.comet-trail {
+  position: absolute;
+  top: 31.2%;
+  left: 10.6%;
+  width: 180px;
+  height: 6px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgba(162,89,255,0) 0%,
+    #a259ff 20%,
+    #6a00f4 60%,
+    rgba(106,0,244,0) 100%
+  );
+  filter: blur(8px);
+  opacity: 0.45;
+  border-radius: 50px;
+  animation: comet-trail-fade 12s linear infinite;
+}
+
+@keyframes comet-fly {
+  0% {
+    transform: translateX(0) translateY(0) rotate(8deg) scaleX(1.1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw) translateY(30vh) rotate(8deg) scaleX(1.1);
+    opacity: 0;
+  }
+}
+@keyframes comet-trail-fade {
+  0% {
+    transform: translateX(0) translateY(0) rotate(8deg) scaleX(1.1);
+    opacity: 0.18;
+  }
+  10% {
+    opacity: 0.22;
+  }
+  80% {
+    opacity: 0.22;
+  }
+  100% {
+    transform: translateX(120vw) translateY(30vh) rotate(8deg) scaleX(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes comet-fire-flicker {
+  0% { opacity: 0.5; filter: blur(8px); }
+  100% { opacity: 0.85; filter: blur(12px); }
+}
+
+.ufo {
+  position: absolute;
+  top: 22%;
+  left: -12vw;
+  width: 70px;
+  height: 28px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(180deg, #b2ebf2 60%, #0097a7 100%);
+  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+  box-shadow: 0 0 16px 4px #b2ebf2, 0 0 32px 8px #0097a7;
+  animation: ufo-fly 14s linear infinite;
+  opacity: 0.95;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.ufo::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  width: 38px;
+  height: 18px;
+  background: radial-gradient(ellipse at center, #fffde7 70%, #b2ebf2 100%);
+  border-radius: 50% 50% 60% 60% / 70% 70% 40% 40%;
+  opacity: 0.85;
+  z-index: 2;
+}
+.ufo::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 2px;
+  width: 50px;
+  height: 8px;
+  background: linear-gradient(90deg, #ffe066 0%, #fff 40%, rgba(255,255,255,0) 100%);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.5;
+  z-index: 1;
+}
+/* Luces del ovni */
+.ufo-lights {
+  position: absolute;
+  bottom: 4px;
+  left: 12px;
+  width: 46px;
+  height: 8px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+}
+.ufo-light {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffe066;
+  box-shadow: 0 0 8px 2px #ffe066;
+  animation: ufo-light-blink 1.2s infinite alternate;
+}
+.ufo-light:nth-child(2) { background: #ff8c00; animation-delay: 0.4s; }
+.ufo-light:nth-child(3) { background: #fff; animation-delay: 0.8s; }
+
+@keyframes ufo-fly {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-8deg) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw) translateY(-10vh) rotate(8deg) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes ufo-light-blink {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.planet-system {
+  position: absolute;
+  bottom: 8%;
+  left: 7%;
+  width: 120px;
+  height: 120px;
+  z-index: 4;
+  pointer-events: none;
+}
+.planet {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at 30% 30%, #3fa9f5 70%, #1a237e 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 32px 8px #3fa9f5, 0 0 64px 16px #1a237e;
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  animation: planet-spin 12s linear infinite;
+  z-index: 2;
+  overflow: hidden;
+}
+.planet::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  width: 22px;
+  height: 14px;
+  background: #7ec850;
+  border-radius: 50% 40% 60% 50%;
+  opacity: 0.7;
+}
+.planet::after {
+  content: "";
+  position: absolute;
+  left: 38px;
+  top: 38px;
+  width: 12px;
+  height: 8px;
+  background: #7ec850;
+  border-radius: 60% 50% 50% 60%;
+  opacity: 0.6;
+}
+.planet-earth {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  border-radius: 50%;
+  box-shadow: 0 0 32px 8px #6cf, 0 0 64px 16px #1a237e;
+  animation: planet-spin 12s linear infinite;
+  z-index: 2;
+  object-fit: cover;
+}

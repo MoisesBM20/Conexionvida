@@ -13,23 +13,21 @@
                   <!-- Director a Jefe -->
                   <path d="M 550 850 V 610" />
                   <!-- Jefe a Coordinadores -->
-                  <path d="M 260 460 V 580 H 800" />
-                  <path d="M 820 460 V 580 H 500" />
+                  <!----><path d="M 270 360 V 580 H 800" />
+                  <!----><path d="M 830 370 V 580 H 500" />
 
-                  <!-- Coord. Atracción a su equipo -->
-                  
                   <!-- LINEA HORIZONTAL DE ASISTENTE A ANALISTA DE ATRACCION -->
-                  <path d="M 400 250 H 175" />
+                  <path d="M 400 150 H 175" />
                   
-                  <!-- De asistente de atraccion a auxiliar -->
+                  <!-- De coordinadora a interseccion de asistente y analista -->
                   <!--<path d="M 130 170 V 60" /> -->
-                  <path d="M 267 390 V 60 H 210" />
+                  <path d="M 267 390 V 150 H 210" />
 
                   <!-- L que baja al Analista de Bienestar -->
-                  <path d="M 680 305 V 430 H 800" />
+                  <path d="M 832 305 V 140" />
 
                   <!-- Línea que baja al Aprendiz -->
-                  <path d="M 1030 250 H 775" />
+                  <path d="M 1030 140 H 775" />
 
               </svg>
 
@@ -40,7 +38,7 @@
                   (click)="selectMember('director-general')"
                   [class.selected]="selectedMember === 'director-general'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo" />
+                  <img src="./assets/images/team/frank.jpeg" alt="personaje" class="photo" />
                   <h3 class="name">Frank Medina</h3>
                   <p class="role">Director General</p>
               </div>
@@ -51,7 +49,7 @@
                   (click)="selectMember('jefe-cultura')"
                   [class.selected]="selectedMember === 'jefe-cultura'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/Ximena.jpeg" alt="personaje" class="photo">
                   <h3 class="name">Ximena Garcés</h3>
                   <p class="role">Jefe de Cultura y Desarrollo</p>
               </div>
@@ -62,7 +60,7 @@
                   (click)="selectMember('coord-atraccion')"
                   [class.selected]="selectedMember === 'coord-atraccion'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/Alexa.png" alt="personaje" class="photo">
                   <h3 class="name">M. Alexandra Valencia</h3>
                   <p class="role">Coordinadora de Atracción</p>
               </div>
@@ -73,7 +71,7 @@
                   (click)="selectMember('coord-bienestar')"
                   [class.selected]="selectedMember === 'coord-bienestar'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/Diana.JPG" alt="personaje" class="photo">
                   <h3 class="name">Diana Katherine Ortega</h3>
                   <p class="role">Coord. Bienestar y Desarrollo</p>
               </div>
@@ -84,7 +82,7 @@
                   (click)="selectMember('asistente-atraccion')"
                   [class.selected]="selectedMember === 'asistente-atraccion'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/Adriana.png" alt="personaje" class="photo">
                   <h3 class="name">Adriana Maria Ordoñez</h3>
                   <p class="role">Asistente de Atracción</p>
               </div>
@@ -95,21 +93,11 @@
                   (click)="selectMember('analista-atraccion')"
                   [class.selected]="selectedMember === 'analista-atraccion'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/lasso.png" alt="personaje" class="photo">
                   <h3 class="name">Esperanza Lasso E.</h3>
                   <p class="role">Analista de Atracción</p>
               </div>
-              
-              <div
-                  id="auxiliar-atraccion"
-                  class="member-card"
-                  (click)="selectMember('auxiliar-atraccion')"
-                  [class.selected]="selectedMember === 'auxiliar-atraccion'"
-              >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                  <h3 class="name">Yesid Ortiz Hernandez</h3>
-                  <p class="role">Auxiliar de Atracción</p>
-              </div>
+            
               
               <div
                   id="analista-bienestar"
@@ -117,8 +105,8 @@
                   (click)="selectMember('analista-bienestar')"
                   [class.selected]="selectedMember === 'analista-bienestar'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
-                  <h3 class="name">Diana Carolina Osorio</h3>
+                  <img src="./assets/images/team/Yesid.png" alt="personaje" class="photo">
+                  <h3 class="name">Yesid Ortiz Hernandez</h3>
                   <p class="role">Analista de Bienestar y Desarrollo</p>
               </div>
 
@@ -128,7 +116,7 @@
                   (click)="selectMember('aprendiz-bienestar')"
                   [class.selected]="selectedMember === 'aprendiz-bienestar'"
               >
-                  <img src="./assets/images/personaje.png" alt="personaje" class="photo">
+                  <img src="./assets/images/team/Claudia.png" alt="personaje" class="photo">
                   <h3 class="name">Aprendiz</h3>
                   <p class="role">Aprendiz de Bienestar y Desarrollo</p>
               </div>
@@ -140,8 +128,7 @@
                   <img 
                       [src]="memberInfo[selectedMember]?.photo" 
                       [alt]="memberInfo[selectedMember]?.name" 
-                      class="photo" 
-                      style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 18px; display: block; border: 4px solid #e0e8f3; object-fit: cover;" 
+                      class="photo"
                   />
                   <h2>{{ memberInfo[selectedMember]?.name }}</h2>
                   <h4>{{ memberInfo[selectedMember]?.role }}</h4>
