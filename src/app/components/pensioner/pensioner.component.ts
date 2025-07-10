@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Pensioner {
   id: number;
@@ -15,6 +16,13 @@ export interface GalleryImage {
   alt: string;
 }
 
+export interface PensionerVideo {
+  title: string;
+  youtubeId: string;
+  thumbnailUrl: string;
+  safeUrl?: SafeResourceUrl;
+}
+
 @Component({
   selector: 'app-pensioner',
   templateUrl: './pensioner.component.html',
@@ -24,6 +32,7 @@ export class PensionerComponent implements OnInit {
 
   // Referencia al contenedor de las miniaturas
   @ViewChild('thumbnailTrack') thumbnailTrack!: ElementRef;
+  @ViewChild('videoThumbnailTrack') videoThumbnailTrack!: ElementRef;
 
   isModalVisible = false;
   selectedPensioner: Pensioner | null = null;
@@ -44,7 +53,7 @@ export class PensionerComponent implements OnInit {
       photoUrl: './assets/images/personaje.png',
       lastRole: 'Coordinadora Administrativa',
       yearsOfService: 28,
-      farewellMessage: 'Gracias a María Fernanda por casi tres décadas de organización impecable y por ser el corazón de nuestro equipo administrativo. Su calidez y profesionalismo serán siempre recordados.'
+      farewellMessage: 'Gracias a María Fernanda por casi tres décadas de   impecable y por ser el corazón de nuestro equipo administrativo. Su calidez y profesionalismo serán siempre recordados.'
     },
     {
       id: 3,
@@ -100,11 +109,32 @@ export class PensionerComponent implements OnInit {
   
   selectedGalleryImage: GalleryImage | null = null;
 
-  constructor() { }
+  videos: PensionerVideo[] = [
+    {
+      title: 'Homenaje a Carlos Rodríguez',
+      youtubeId: 'ajBFFbgPLsI',
+      thumbnailUrl: 'https://img.youtube.com/vi/ajBFFbgPLsI/hqdefault.jpg'
+    }
+    // Puedes agregar más videos aquí
+  ];
+
+  isVideoModalVisible = false;
+  selectedVideo: PensionerVideo | null = null;
+
+  activeTab: 'photos' | 'videos' = 'photos';
+
+  isImageModalVisible = false;
+  modalImageUrl: string | null = null;
+  modalVideoUrl: SafeResourceUrl | null = null;
+
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     if (this.galleryImages.length > 0) {
       this.selectedGalleryImage = this.galleryImages[0];
+    }
+    if (this.videos.length > 0) {
+      this.selectVideo(this.videos[0]);
     }
   }
 
@@ -139,10 +169,61 @@ export class PensionerComponent implements OnInit {
     });
   }
 
+  openImageModal(image: GalleryImage): void {
+    this.modalImageUrl = image.url;
+    this.isImageModalVisible = true;
+  }
+
+  closeImageModal(): void {
+    this.isImageModalVisible = false;
+    setTimeout(() => { this.modalImageUrl = null; }, 300);
+  }
+
+  openVideoModal(video: PensionerVideo): void {
+    if (!video.safeUrl) {
+      video.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1`
+      );
+    }
+    this.modalVideoUrl = video.safeUrl;
+    this.isVideoModalVisible = true;
+  }
+
+  closeVideoModal(): void {
+    this.isVideoModalVisible = false;
+    setTimeout(() => { this.modalVideoUrl = null; }, 300);
+  }
+
+  // Seleccionar video y generar safeUrl
+  selectVideo(video: PensionerVideo): void {
+    if (!video.safeUrl) {
+      video.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1`
+      );
+    }
+    this.selectedVideo = video;
+  }
+
+  // Carrusel de miniaturas de videos
+  scrollVideoThumbnails(direction: 'prev' | 'next'): void {
+    const track = this.videoThumbnailTrack.nativeElement;
+    const scrollAmount = track.clientWidth / 2;
+    track.scrollBy({
+      left: direction === 'prev' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
     if (this.isModalVisible) {
       this.closeModal();
+    }
+    if (this.isImageModalVisible) {
+      this.closeImageModal();
+    }
+    if (this.isVideoModalVisible) {
+      this.closeVideoModal();
     }
   }
 }

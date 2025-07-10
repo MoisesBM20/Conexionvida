@@ -29,10 +29,12 @@
   
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(10px);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0px);
   transition: all 0.3s ease;
+
+  animation: signal-pulse 2.5s infinite ease-in-out;
 }
 
 .floating-icon-link {

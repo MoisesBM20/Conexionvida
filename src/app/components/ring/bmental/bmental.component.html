@@ -1,48 +1,71 @@
 <!-- bmental.component.html -->
 <div class="ring-child-container">
-    
-    <!-- Encabezado de la sección -->
-    <header class="ring-child-header">
-        <img src="http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/I_ICONO_MENTAL.png" alt="Icono Bienestar Mental" class="icon">
-        <h1>Bienestar Mental</h1>
-        <p>Cuidar tu mente es tan importante como cuidar tu cuerpo. Encuentra aquí herramientas y apoyo para tu equilibrio emocional.</p>
-    </header>
+  <!-- Encabezado de la sección -->
+  <header class="ring-child-header">
+    <img src="http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/I_ICONO_MENTAL.png" alt="Icono Bienestar Mental" class="icon">
+    <h1>Bienestar Mental</h1>
+    <p>Cuidar tu mente es tan importante como cuidar tu cuerpo. Encuentra aquí herramientas y apoyo para tu equilibrio emocional.</p>
+  </header>
 
-    <div class="ring-child-body">
-
-        <div class="benefits-bar">
-            <button class="benefit-button" *ngFor="let button of benefitButtons" (click)="button.action()">
-                <span class="material-icons icon">{{ button.icon }}</span>
-                <span>{{ button.text }}</span>
-            </button>
-        </div>
-
-        <!-- Feed de publicaciones (ahora ocupa todo el ancho) -->
-        <div class="timeline-feed">
-            <div *ngFor="let group of groupedPosts">
-                <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
-                <div class="timeline-post" *ngFor="let post of group.posts">
-                    <div class="post-image">
-                        <img [src]="post.imageUrl" [alt]="post.altText">
-                    </div>
-                    <div class="post-content">
-                        <p>{{ post.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+  <div class="ring-child-body">
+    <div class="benefits-bar">
+      <button class="benefit-button" *ngFor="let button of benefitButtons" (click)="button.action()">
+        <span class="material-icons icon">{{ button.icon }}</span>
+        <span>{{ button.text }}</span>
+      </button>
     </div>
+
+    <!-- Feed de publicaciones por mes y categorías (carrusel) -->
+    <div class="timeline-feed">
+      <div *ngFor="let group of visibleMonthGroups">
+        <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
+        <div *ngFor="let category of group.categories" class="ring-category-section">
+          <h4 class="ring-category-title">{{ category.name }}</h4>
+          <div class="ring-carousel-container">
+            <button class="carousel-arrow left" (click)="scrollCarousel(carousel, 'left')" aria-label="Anterior">
+              <span class="material-icons">chevron_left</span>
+            </button>
+            <div class="ring-carousel-images" #carousel>
+              <div class="carousel-img-desc" *ngFor="let img of category.images">
+                <img
+                  [src]="img.imageUrl"
+                  [alt]="img.altText"
+                  class="ring-carousel-img-large"
+                  (click)="openImageModal(img)"
+                  style="cursor: pointer;"
+                />
+                <div class="img-title"><b>{{ img.altText }}</b></div>
+                <div class="img-desc">{{ img.description }}</div>
+              </div>
+            </div>
+            <button class="carousel-arrow right" (click)="scrollCarousel(carousel, 'right')" aria-label="Siguiente">
+              <span class="material-icons">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Modal para información adicional -->
-<div class="info-modal-backdrop" *ngIf="isInfoModalVisible" (click)="closeInfoModal()">
-    <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
-        <button class="close-button" (click)="closeInfoModal()">&times;</button>
-        <div class="modal-body">
-            <span class="material-icons modal-icon">{{ modalContent.icon }}</span>
-            <h3 class="modal-title">{{ modalContent.title }}</h3>
-            <p class="modal-text">{{ modalContent.text }}</p>
-        </div>
+<!-- Modal para visualizar imagen -->
+<div class="info-modal-backdrop" *ngIf="selectedImage" (click)="closeImageModal()">
+  <div class="image-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+    <div class="modal-body">
+      <img [src]="selectedImage.imageUrl" [alt]="selectedImage.altText" class="modal-img-large">
+      <div class="img-desc">{{ selectedImage.description }}</div>
     </div>
+  </div>
+</div>
+
+<!-- Modal para información adicional (benefits) -->
+<div class="info-modal-backdrop" *ngIf="isInfoModalVisible" (click)="closeInfoModal()">
+  <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closeInfoModal()">&times;</button>
+    <div class="modal-body">
+      <span class="material-icons modal-icon">{{ modalContent.icon }}</span>
+      <h3 class="modal-title">{{ modalContent.title }}</h3>
+      <p class="modal-text">{{ modalContent.text }}</p>
+    </div>
+  </div>
 </div>

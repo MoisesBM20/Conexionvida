@@ -25,12 +25,6 @@ export class GanefamilyComponent {
   
   @ViewChildren('photoTrack') photoTrack!: QueryList<ElementRef>;
   
-  // --- Lógica para el carrusel de fotos ---
-  private isDragging = false;
-  private hasDragged = false; // Flag para diferenciar clic de arrastre
-  private startX = 0;
-  private scrollLeft = 0;
-  
   // --- Lógica para modales y datos ---
   isImageModalVisible = false;
   selectedImageUrl: string | null = null;
@@ -58,42 +52,53 @@ export class GanefamilyComponent {
     { title: 'Actividades para Niños', youtubeId: 't4gjl-uw28g', thumbnailUrl: 'assets/images/GaneFamilia/ganefamilia.png' }
   ];
 
+  private autoScrollInterval: any = null;
+
   constructor(private sanitizer: DomSanitizer, private renderer: Renderer2) { }
 
-  // --- Lógica del carrusel de fotos ---
+  ngAfterViewInit() {
+    this.startAutoScroll();
+  }
+
+  startAutoScroll() {
+    this.stopAutoScroll();
+    this.autoScrollInterval = setInterval(() => {
+      if (!this.isImageModalVisible && this.photoTrack && this.photoTrack.first) {
+        this.scrollPhotos('next');
+      }
+    }, 2000);
+  }
+
+  stopAutoScroll() {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+      this.autoScrollInterval = null;
+    }
+  }
+
   scrollPhotos(direction: 'prev' | 'next'): void {
     const track = this.photoTrack.first.nativeElement;
-    const scrollAmount = track.querySelector('.photo-gallery-item')?.clientWidth * 2;
-    track.scrollBy({ left: direction === 'next' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
+    const item = track.querySelector('.photo-gallery-item');
+    if (!item) return;
+    const scrollAmount = item.clientWidth * 2;
+
+    if (direction === 'next') {
+      // Si estamos cerca del final, vuelve al inicio
+      if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - scrollAmount) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    } else {
+      // Si estamos al inicio, ve al final
+      if (track.scrollLeft <= 0) {
+        track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      }
+    }
   }
 
-  onMouseDown(event: MouseEvent, track: HTMLElement): void {
-    this.isDragging = true;
-    this.hasDragged = false; // Resetea el flag al iniciar el clic
-    this.startX = event.pageX - track.offsetLeft;
-    this.scrollLeft = track.scrollLeft;
-    this.renderer.addClass(track, 'is-dragging');
-  }
-
-  onMouseLeave(track: HTMLElement): void {
-    this.isDragging = false;
-    this.renderer.removeClass(track, 'is-dragging');
-  }
-
-  onMouseUp(): void {
-    this.isDragging = false;
-    this.renderer.removeClass(this.photoTrack.first.nativeElement, 'is-dragging');
-  }
-
-  onMouseMove(event: MouseEvent, track: HTMLElement): void {
-    if (!this.isDragging) return;
-    this.hasDragged = true; // Si el mouse se mueve, es un arrastre
-    event.preventDefault();
-    const x = event.pageX - track.offsetLeft;
-    const walk = (x - this.startX) * 2;
-    track.scrollLeft = this.scrollLeft - walk;
-  }
-  
   // --- Lógica para reproducción de videos ---
   playVideo(clickedVideo: Video): void {
     if (!clickedVideo.safeUrl) {
@@ -104,24 +109,39 @@ export class GanefamilyComponent {
     });
   }
 
-  // ---  Lógica para el modal de imagen (con chequeo de arrastre) ---
+  // ---  Lógica para el modal de imagen ---
   onItemClick(imageUrl: string): void {
-    // Solo abre el modal si no se estaba arrastrando
-    if (!this.hasDragged) {
-      this.selectedImageUrl = imageUrl;
-      this.isImageModalVisible = true;
-    }
+    this.selectedImageUrl = imageUrl;
+    this.isImageModalVisible = true;
+    this.stopAutoScroll();
   }
 
   closeImageModal(): void {
     this.isImageModalVisible = false;
-    setTimeout(() => { this.selectedImageUrl = null; }, 300);
+    setTimeout(() => { 
+      this.selectedImageUrl = null; 
+      this.startAutoScroll();
+    }, 300);
   }
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
     if (this.isImageModalVisible) {
       this.closeImageModal();
+    }
+  }
+
+  ngOnDestroy() {
+    this.stopAutoScroll();
+  }
+
+  pauseAutoScroll() {
+    this.stopAutoScroll();
+  }
+
+  resumeAutoScroll() {
+    if (!this.isImageModalVisible) {
+      this.startAutoScroll();
     }
   }
 }

@@ -1,105 +1,49 @@
-.btn-icon-blue {
-    background: #003594 !important;
-    color: #fff !important;
-    border-radius: 6px;
-    width: 45px;
-    height: 45px;
-    min-width: 45px;
-    min-height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none;
-    border: none;
-    transition: background 0.2s;
-   
-    &:hover {
-      background: #0145b1 !important;
-    }
-   
-    mat-icon {
-      font-size: 25px
-    }
-  }
-
-.custom-loader-backdrop {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+// --- Contenedor de Superposición para Centrado Total ---
+.loading-overlay {
+  position: fixed; // Fijo en la ventana
+  top: 0;
+  left: 0;
+  width: 100vw; // Ancho completo de la ventana
+  height: 100vh; // Alto completo de la ventana
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8); // Fondo semi-transparente opcional
   z-index: 9999;
 }
 
-.custom-loader {
-  background: transparent;
-  padding: 0;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// --- Contenedor del Logo Oficial Animado ---
+.official-logo-animation {
+  // Dimensiones del logo. Ajustar si es necesario para que coincida con la imagen.
+  width: 350px;
+  height: 200px;
+
+  // --- IMPORTANTE ---
+  // Establecer el logo oficial como imagen de fondo.
+  // Asegúrate de que la ruta a tu logo en la carpeta 'assets' sea correcta.
+  background-image: url('/assets/images/gane.png');
+
+  background-size: contain; // Asegura que el logo se vea completo y sin distorsión
+  background-repeat: no-repeat;
+  background-position: center;
+
+  // Aplicar la animación de revelado que te gustó
+  animation: reveal-logo 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
 
-.gane-loader-svg {
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  display: block;
-}
-
-.gane-loader-gif {
-  max-width: 180px;
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* --- Animación de la cola --- */
-.gane-tail {
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  animation: draw-tail 1.2s cubic-bezier(0.77,0,0.18,1) forwards;
-  animation-iteration-count: infinite;
-}
-
-.gane-tail-highlight {
-  animation-delay: 0.15s;
-}
-
-/* --- Animación de la estrella --- */
-.gane-star {
-  opacity: 0;
-  animation: star-appear 0.3s linear forwards;
-  animation-delay: 1s;
-  animation-iteration-count: infinite;
-}
-
-.gane-star-highlight {
-  animation-delay: 1.15s;
-}
-
-@keyframes draw-tail {
-  0% {
-    stroke-dashoffset: 600;
+// --- Animación de Revelado (Keyframes) ---
+// Esta animación hace que el elemento aparezca de derecha a izquierda
+@keyframes reveal-logo {
+  0%, 10% {
+    // Empieza completamente oculto (recortado desde la derecha)
+    clip-path: inset(0 100% 0 0);
   }
-  80% {
-    stroke-dashoffset: 0;
+  60% {
+    // Se revela completamente
+    clip-path: inset(0 0 0 0);
   }
   100% {
-    stroke-dashoffset: 600;
-  }
-}
-
-@keyframes star-appear {
-  0%, 80% {
-    opacity: 0;
-  }
-  85%, 95% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
+    // Permanece visible antes de reiniciar el ciclo
+    clip-path: inset(0 0 0 0);
   }
 }

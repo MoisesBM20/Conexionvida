@@ -19,6 +19,16 @@ export interface Benefit {
   description: string;
 }
 
+interface Category {
+  name: string;
+  images: { imageUrl: string; altText: string; description: string }[];
+}
+
+interface MonthGroup {
+  month: string;
+  categories: Category[];
+}
+
 @Component({
   selector: 'app-bmental',
   templateUrl: './bmental.component.html',
@@ -30,52 +40,66 @@ export class BMentalComponent {
   isModalClosing = false; 
   modalContent = { title: '', text: '', icon: '' };
 
+  // 1. Agrega el array de meses
   private monthOrder = [
     'MES DE ENERO', 'MES DE FEBRERO', 'MES DE MARZO', 'MES DE ABRIL',
     'MES DE MAYO', 'MES DE JUNIO', 'MES DE JULIO', 'MES DE AGOSTO',
     'MES DE SEPTIEMBRE', 'MES DE OCTUBRE', 'MES DE NOVIEMBRE', 'MES DE DICIEMBRE'
   ];
 
+  // 2. Getter para el mes actual
   get currentMonth(): string {
     return this.monthOrder[new Date().getMonth()];
   }
-  get groupedPosts() {
-    const monthOrder = [
-      'MES DE ENERO', 'MES DE FEBRERO', 'MES DE MARZO', 'MES DE ABRIL',
-      'MES DE MAYO', 'MES DE JUNIO', 'MES DE JULIO', 'MES DE AGOSTO',
-      'MES DE SEPTIEMBRE', 'MES DE OCTUBRE', 'MES DE NOVIEMBRE', 'MES DE DICIEMBRE'
+
+  // 3. Getter para el mes anterior
+  get visibleMonthGroups(): MonthGroup[] {
+    const currentIdx = this.monthOrder.indexOf(this.currentMonth);
+    const prevIdx = (currentIdx - 1 + this.monthOrder.length) % this.monthOrder.length;
+    const monthsToShow = [
+      this.monthOrder[currentIdx],
+      this.monthOrder[prevIdx]
     ];
-    const groups = this.posts.reduce((acc, post) => {
-      (acc[post.date] = acc[post.date] || []).push(post);
-      return acc;
-    }, {} as { [key: string]: TimelinePost[] });
-    
-    return Object.keys(groups)
-      .map(month => ({ month, posts: groups[month] }))
-      .sort((a, b) => {
-        if (a.month === this.currentMonth) return -1;
-        if (b.month === this.currentMonth) return 1;
-        return monthOrder.indexOf(b.month) - monthOrder.indexOf(a.month);
-      });
+    return monthsToShow
+      .map(month => this.monthGroups.find(group => group.month === month))
+      .filter((group): group is MonthGroup => !!group);
   }
-  posts: TimelinePost[] = [
+
+  monthGroups: MonthGroup[] = [
     {
-      date: 'MES DE JULIO',
-      imageUrl: '', // Reemplaza con tu imagen
-      altText: 'Proximamente actividades!',
-      description: ''
+      month: 'MES DE JUNIO',
+      categories: [
+        {
+          name: 'SUCREDITO',
+          images: [
+            {
+              imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/DIANA-JULI-ESPERANZA-644x446.jpg',
+              altText: 'Auxilio óptico',
+              description: 'Testimonio de beneficiarias del programa de bienestar mental.'
+            },
+            {
+              imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/MACKYNG-644x446.jpg',
+              altText: 'Auxilio economico',
+              description: 'Participación en actividades de bienestar mental.'
+            }
+          ]
+        }
+      ]
     },
     {
-      date: 'MES DE JUNIO',
-      imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/DIANA-JULI-ESPERANZA-644x446.jpg', // Reemplaza con tu imagen
-      altText: 'Beneficiarias',
-      description: ''
-    },
-    {
-      date: 'MES DE JUNIO',
-      imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/MACKYNG-644x446.jpg',
-      altText: '',
-      description: ''
+      month: 'MES DE JULIO',
+      categories: [
+        {
+          name: 'Próximamente',
+          images: [
+            {
+              imageUrl: '',
+              altText: 'Próximamente actividades!',
+              description: 'Próximamente actividades'
+            }
+          ]
+        }
+      ]
     }
   ];
 
@@ -112,5 +136,31 @@ export class BMentalComponent {
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
+
+  selectedImage: { imageUrl: string; altText: string; description: string } | null = null;
+
+  openImageModal(img: { imageUrl: string; altText: string; description: string }) {
+    this.selectedImage = img;
+    this.isModalClosing = false;
+  }
+
+  closeImageModal() {
+    this.isModalClosing = true;
+    setTimeout(() => {
+      this.isModalClosing = false;
+      this.selectedImage = null;
+    }, 300);
+  }
+
+  // Carrusel (igual que en bphysical)
+  scrollCarousel(container: HTMLElement, direction: 'left' | 'right') {
+    const scrollAmount = 350; // igual al ancho de la imagen
+    if (direction === 'left') {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  }
 }
+
 

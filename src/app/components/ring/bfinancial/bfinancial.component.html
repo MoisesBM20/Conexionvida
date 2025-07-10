@@ -15,17 +15,32 @@
             </button>
         </div>
 
+        <!-- Feed de publicaciones por mes y categorías (carrusel) -->
         <div class="timeline-feed">
-            <div *ngFor="let group of groupedPosts">
+            <div *ngFor="let group of visibleMonthGroups">
                 <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
-                <div class="posts-grid">
-                    <div class="timeline-post" *ngFor="let post of group.posts">
-                        <div class="post-image">
-                            <img [src]="post.imageUrl" [alt]="post.altText">
+                <div *ngFor="let category of group.categories" class="ring-category-section">
+                    <h4 class="ring-category-title">{{ category.name }}</h4>
+                    <div class="ring-carousel-container">
+                        <button class="carousel-arrow left" (click)="scrollCarousel(carousel, 'left')" aria-label="Anterior">
+                            <span class="material-icons">chevron_left</span>
+                        </button>
+                        <div class="ring-carousel-images" #carousel>
+                            <div class="carousel-img-desc" *ngFor="let img of category.images">
+                                <img
+                                    [src]="img.imageUrl"
+                                    [alt]="img.altText"
+                                    class="ring-carousel-img-large"
+                                    (click)="openImageModal(img)"
+                                    style="cursor: pointer;"
+                                />
+                                <div class="img-title"><b>{{ img.altText }}</b></div>
+                                <div class="img-desc">{{ img.description }}</div>
+                            </div>
                         </div>
-                        <div class="post-content">
-                            <p>{{ post.description }}</p>
-                        </div>
+                        <button class="carousel-arrow right" (click)="scrollCarousel(carousel, 'right')" aria-label="Siguiente">
+                            <span class="material-icons">chevron_right</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -33,6 +48,16 @@
     </div>
 </div>
 
+<!-- Modal para visualizar imagen -->
+<div class="info-modal-backdrop" *ngIf="selectedImage" (click)="closeImageModal()">
+    <div class="image-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+        <div class="modal-body">
+            <img [src]="selectedImage.imageUrl" [alt]="selectedImage.altText" class="modal-img-large">
+        </div>
+    </div>
+</div>
+
+<!-- Modal para información adicional -->
 <div class="info-modal-backdrop" *ngIf="isInfoModalVisible" (click)="closeInfoModal()">
     <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
         <ng-container *ngIf="selectedModalContent">

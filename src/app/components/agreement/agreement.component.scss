@@ -121,8 +121,6 @@
         transform: scale(1.05);
         z-index: 10; 
         
-        img { filter: grayscale(0%); }
-
         .info-popup {
             opacity: 1;
             visibility: visible;
@@ -134,7 +132,6 @@
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
-        filter: grayscale(100%);
         transition: filter 0.3s ease;
     }
 }

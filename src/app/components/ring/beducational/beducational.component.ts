@@ -1,12 +1,14 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-// Interfaces para la estructura de datos
-export interface TimelinePost {
-  date: string;
-  imageUrl: string;
-  altText: string;
-  description: string;
+interface Category {
+  name: string;
+  images: { imageUrl: string; altText: string; description: string }[];
+}
+
+interface MonthGroup {
+  month: string;
+  categories: Category[];
 }
 
 export interface ModalContent {
@@ -28,10 +30,11 @@ export interface BenefitButton {
   styleUrls: ['./beducational.component.scss']
 })
 export class BEducationalComponent {
-
   isInfoModalVisible = false;
   isModalClosing = false;
   selectedModalContent: ModalContent | null = null;
+
+  selectedImage: { imageUrl: string; altText: string; description: string } | null = null;
 
   private monthOrder = [
     'MES DE ENERO', 'MES DE FEBRERO', 'MES DE MARZO', 'MES DE ABRIL',
@@ -43,34 +46,49 @@ export class BEducationalComponent {
     return this.monthOrder[new Date().getMonth()];
   }
 
-  get groupedPosts() {
-    const groups = this.posts.reduce((acc, post) => {
-      (acc[post.date] = acc[post.date] || []).push(post);
-      return acc;
-    }, {} as { [key: string]: TimelinePost[] });
-    
-    return Object.keys(groups)
-      .map(month => ({ month, posts: groups[month] }))
-      .sort((a, b) => {
-        if (a.month === this.currentMonth) return -1;
-        if (b.month === this.currentMonth) return 1;
-        return this.monthOrder.indexOf(b.month) - this.monthOrder.indexOf(a.month);
-      });
+  get visibleMonthGroups(): MonthGroup[] {
+    const currentIdx = this.monthOrder.indexOf(this.currentMonth);
+    const prevIdx = (currentIdx - 1 + this.monthOrder.length) % this.monthOrder.length;
+    const monthsToShow = [
+      this.monthOrder[currentIdx],
+      this.monthOrder[prevIdx]
+    ];
+    return monthsToShow
+      .map(month => this.monthGroups.find(group => group.month === month))
+      .filter((group): group is MonthGroup => !!group);
   }
 
-  posts: TimelinePost[] = [
+  monthGroups: MonthGroup[] = [
     {
-      date: 'MES DE JULIO',
-      imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/signal-2024-11-09-112137_005-768x512.jpeg',
-      altText: 'Charla de Liderazgo',
-      description: 'Participa en nuestra próxima charla sobre liderazgo y desarrollo de habilidades gerenciales. ¡Potencia tu carrera con nosotros!'
+      month: 'MES DE JUNIO',
+      categories: [
+        {
+          name: 'Convenios',
+          images: [
+            {
+              imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/NUEVO-CONVENIO.png',
+              altText: 'Convenio Uniminuto',
+              description: '¡Tenemos un nuevo convenio con Uniminuto! Accede a descuentos especiales en programas de pregrado y posgrado para ti y tu familia.'
+            }
+          ]
+        }
+      ]
     },
     {
-      date: 'MES DE JUNIO',
-      imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/NUEVO-CONVENIO.png',
-      altText: 'Convenio Uniminuto',
-      description: '¡Tenemos un nuevo convenio con Uniminuto! Accede a descuentos especiales en programas de pregrado y posgrado para ti y tu familia.'
-    },
+      month: 'MES DE JULIO',
+      categories: [
+        {
+          name: 'Charlas',
+          images: [
+            {
+              imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/signal-2024-11-09-112137_005-768x512.jpeg',
+              altText: 'Charla de Liderazgo',
+              description: 'Participa en nuestra próxima charla sobre liderazgo y desarrollo de habilidades gerenciales. ¡Potencia tu carrera con nosotros!'
+            }
+          ]
+        }
+      ]
+    }
   ];
 
   benefitButtons: BenefitButton[] = [
@@ -86,6 +104,7 @@ export class BEducationalComponent {
   openInfoModal(data: ModalContent): void {
     this.selectedModalContent = data;
     this.isInfoModalVisible = true;
+    this.isModalClosing = false;
   }
 
   closeInfoModal(): void {
@@ -101,10 +120,25 @@ export class BEducationalComponent {
     this.router.navigate([route]);
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
-  onKeydownHandler(event: KeyboardEvent) {
-    if (this.isInfoModalVisible) {
-      this.closeInfoModal();
+  openImageModal(img: { imageUrl: string; altText: string; description: string }) {
+    this.selectedImage = img;
+    this.isModalClosing = false;
+  }
+
+  closeImageModal() {
+    this.isModalClosing = true;
+    setTimeout(() => {
+      this.isModalClosing = false;
+      this.selectedImage = null;
+    }, 300);
+  }
+
+  scrollCarousel(container: HTMLElement, direction: 'left' | 'right') {
+    const scrollAmount = 350;
+    if (direction === 'left') {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   }
 }

@@ -1,17 +1,15 @@
-<body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <div class="team-header">
-        <h1>ORGANIGRAMA</h1>
-        <p>Buscamos el mejor talento para la organización</p>
-    </div>
+<!-- Botones para controlar la animación -->
+<div class="p-4 text-center">
+  <button (click)="startLoading()" *ngIf="!loading" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300">
+    Iniciar Carga
+  </button>
+  <button (click)="stopLoading()" *ngIf="loading" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300">
+    Detener Carga
+  </button>
+</div>
 
-    <button class="btn-icon-blue" (click)="showLoader()">
-      Mostrar animación de carga
-    </button>
-
-    <div class="custom-loader-backdrop" *ngIf="loading">
-      <div class="custom-loader">
-        <img *ngIf="showGif" [src]="'assets/g_15_.gif?'+gifKey" alt="Cargando..." class="gane-loader-gif" />
-      </div>
-    </div>
-</body>
+<!-- Contenedor de superposición para centrar en toda la página -->
+<div *ngIf="loading" class="loading-overlay">
+  <!-- Este div contendrá el logo oficial como imagen de fondo y se animará -->
+  <div class="official-logo-animation"></div>
+</div>

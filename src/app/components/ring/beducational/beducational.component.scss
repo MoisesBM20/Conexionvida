@@ -1,1 +1,20 @@
 @import '../_ring-content-styles.scss';
+
+.ring-carousel-img-large {
+    margin-bottom: 12px; // Ajusta el valor según el espacio que desees
+  }
+
+  .modal-img-large {
+    width: 90vw;
+    max-width: 600px;
+    height: auto;
+    border-radius: 18px;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  @media (min-width: 1400px) {
+    .modal-img-large {
+      max-width: 1000px;
+    }
+  }

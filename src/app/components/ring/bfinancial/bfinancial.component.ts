@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-// Interfaces para la estructura de datos
-export interface TimelinePost {
-  date: string;
-  imageUrl: string;
-  altText: string;
-  description: string;
+interface Category {
+  name: string;
+  images: { imageUrl: string; altText: string; description: string }[];
+}
+
+interface MonthGroup {
+  month: string;
+  categories: Category[];
 }
 
 export interface ModalContent {
@@ -32,6 +34,9 @@ export class BFinancialComponent {
   isModalClosing = false;
   selectedModalContent: ModalContent | null = null;
 
+  // Modal de imagen
+  selectedImage: { imageUrl: string; altText: string; description: string } | null = null;
+
   private monthOrder = [
     'MES DE ENERO', 'MES DE FEBRERO', 'MES DE MARZO', 'MES DE ABRIL',
     'MES DE MAYO', 'MES DE JUNIO', 'MES DE JULIO', 'MES DE AGOSTO',
@@ -42,34 +47,60 @@ export class BFinancialComponent {
     return this.monthOrder[new Date().getMonth()];
   }
 
-  get groupedPosts() {
-    const groups = this.posts.reduce((acc, post) => {
-      (acc[post.date] = acc[post.date] || []).push(post);
-      return acc;
-    }, {} as { [key: string]: TimelinePost[] });
-    
-    return Object.keys(groups)
-      .map(month => ({ month, posts: groups[month] }))
-      .sort((a, b) => {
-        if (a.month === this.currentMonth) return -1;
-        if (b.month === this.currentMonth) return 1;
-        return this.monthOrder.indexOf(b.month) - this.monthOrder.indexOf(a.month);
-      });
+  get visibleMonthGroups(): MonthGroup[] {
+    const currentIdx = this.monthOrder.indexOf(this.currentMonth);
+    const prevIdx = (currentIdx - 1 + this.monthOrder.length) % this.monthOrder.length;
+    const monthsToShow = [
+      this.monthOrder[currentIdx],
+      this.monthOrder[prevIdx]
+    ];
+    return monthsToShow
+      .map(month => this.monthGroups.find(group => group.month === month))
+      .filter((group): group is MonthGroup => !!group);
   }
 
-  posts: TimelinePost[] = [
+  // Estructura de meses y categorías (EJEMPLO, personaliza según tu info)
+  monthGroups: MonthGroup[] = [
     {
-      date: 'MES DE JULIO',
-      imageUrl: 'Charla de Ahorro',
-      altText: 'Proximamente eventos!',
-      description: 'Aprende a gestionar tus finanzas personales y a planificar tu futuro con nuestra charla sobre la importancia del ahorro.'
+      month: 'MES DE JUNIO',
+      categories: [
+        {
+          name: 'Créditos',
+          images: [
+            {
+              imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/SOAY-T-RTM.jpeg',
+              altText: 'Créditos',
+              description: 'Conoce las opciones de crédito con tasas preferenciales que tenemos para ti. ¡Cumple tus sueños!'
+            }
+          ]
+        },
+        {
+          name: 'Ahorro',
+          images: [
+            {
+              imageUrl: 'https://www.bbva.com/wp-content/uploads/2019/07/ahorro-dinero-bbva-1024x629.jpg',
+              altText: 'Charla de Ahorro',
+              description: 'Aprende a gestionar tus finanzas personales y a planificar tu futuro con nuestra charla sobre la importancia del ahorro.'
+            }
+          ]
+        }
+      ]
     },
     {
-      date: 'MES DE JUNIO',
-      imageUrl: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2024/09/SOAY-T-RTM.jpeg',
-      altText: 'Créditos',
-      description: 'Conoce las opciones de crédito con tasas preferenciales que tenemos para ti. ¡Cumple tus sueños!'
-    },
+      month: 'MES DE JULIO',
+      categories: [
+        {
+          name: 'Próximamente',
+          images: [
+            {
+              imageUrl: '',
+              altText: 'Próximamente eventos!',
+              description: 'Próximamente actividades'
+            }
+          ]
+        }
+      ]
+    }
   ];
 
   benefitButtons: BenefitButton[] = [
@@ -80,9 +111,11 @@ export class BFinancialComponent {
   ];
 
   constructor(private router: Router) { }
+
   openInfoModal(data: ModalContent): void {
     this.selectedModalContent = data;
     this.isInfoModalVisible = true;
+    this.isModalClosing = false;
   }
 
   closeInfoModal(): void {
@@ -96,5 +129,29 @@ export class BFinancialComponent {
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
+  }
+
+  // Modal de imagen
+  openImageModal(img: { imageUrl: string; altText: string; description: string }) {
+    this.selectedImage = img;
+    this.isModalClosing = false;
+  }
+
+  closeImageModal() {
+    this.isModalClosing = true;
+    setTimeout(() => {
+      this.isModalClosing = false;
+      this.selectedImage = null;
+    }, 300);
+  }
+
+  // Carrusel
+  scrollCarousel(container: HTMLElement, direction: 'left' | 'right') {
+    const scrollAmount = 350; // igual al ancho de la imagen
+    if (direction === 'left') {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
   }
 }

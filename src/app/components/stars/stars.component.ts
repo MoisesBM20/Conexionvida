@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef, Renderer2, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export interface Video {
@@ -6,7 +6,7 @@ export interface Video {
   thumbnailUrl: string;
   youtubeId: string;
   isPlaying?: boolean;
-  safeUrl?: SafeResourceUrl; // Almacena la URL segura para evitar recargas
+  safeUrl?: SafeResourceUrl;
 }
 
 export interface Photo {
@@ -20,19 +20,12 @@ export interface Photo {
   templateUrl: './stars.component.html',
   styleUrls: ['./stars.component.scss']
 })
-export class StarsComponent {
-  
+export class StarsComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('photoTrack') photoTrack!: QueryList<ElementRef>;
-  
-  // --- Lógica para el carrusel de fotos ---
-  private isDragging = false;
-  private startX = 0;
-  private scrollLeft = 0;
-  
-  // --- Lógica para modales y datoss ---
+
   isImageModalVisible = false;
   selectedImageUrl: string | null = null;
-  
+
   photos: Photo[] = [
     { id: 1, url: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2025/02/IMG_7844-644x429.jpg', alt: 'Foto 1' },
     { id: 2, url: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2025/02/IMG_7920-644x429.jpg', alt: 'Foto 2' },
@@ -46,74 +39,94 @@ export class StarsComponent {
     { id: 11, url: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2025/02/IMG_7877-644x429.jpg', alt: 'Foto 11' },
     { id: 12, url: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2025/02/IMG_7941-644x429.jpg', alt: 'Foto 12' },
     { id: 13, url: 'http://intranet.gane.com.co/cultura-vida/wp-content/uploads/2025/02/DSC_7448-644x429.jpg', alt: 'Foto 13' }
- 
   ];
+
   videos: Video[] = [
     { title: 'NOCHE DE ESTRELLAS PRIMERA EDICIÓN', youtubeId: 'IXpx5sNq6KM', thumbnailUrl: 'https://img.youtube.com/vi/IXpx5sNq6KM/hqdefault.jpg' },
     { title: 'NOCHE DE ESTRELLAS SEGUNDA EDICIÓN', youtubeId: 'j2o7W7gY8uw', thumbnailUrl: 'https://img.youtube.com/vi/j2o7W7gY8uw/hqdefault.jpg' },
     { title: 'NOCHE DE ESTRELLAS TERCERA EDICIÓN', youtubeId: 'amBKgqXB8co', thumbnailUrl: 'https://img.youtube.com/vi/amBKgqXB8co/hqdefault.jpg' }
   ];
 
+  private autoScrollInterval: any = null;
+
   constructor(private sanitizer: DomSanitizer, private renderer: Renderer2) { }
 
-  // --- Lógica del carrusel de fotos ---
+  ngAfterViewInit() {
+    this.startAutoScroll();
+  }
+
+  startAutoScroll() {
+    this.stopAutoScroll();
+    this.autoScrollInterval = setInterval(() => {
+      if (!this.isImageModalVisible && this.photoTrack && this.photoTrack.first) {
+        this.scrollPhotos('next');
+      }
+    }, 2500);
+  }
+
+  stopAutoScroll() {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+      this.autoScrollInterval = null;
+    }
+  }
+
   scrollPhotos(direction: 'prev' | 'next'): void {
     const track = this.photoTrack.first.nativeElement;
-    const scrollAmount = track.querySelector('.photo-gallery-item')?.clientWidth * 2; // Mueve de a 2 imágenes
-    track.scrollBy({ left: direction === 'next' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
+    const item = track.querySelector('.photo-gallery-item');
+    if (!item) return;
+    const scrollAmount = item.clientWidth * 2;
+
+    if (direction === 'next') {
+      // Si estamos cerca del final, vuelve al inicio
+      if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - scrollAmount) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    } else {
+      // Si estamos al inicio, ve al final
+      if (track.scrollLeft <= 0) {
+        track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      }
+    }
   }
 
-  onMouseDown(event: MouseEvent): void {
-    const track = this.photoTrack.first.nativeElement;
-    this.isDragging = true;
-    this.startX = event.pageX - track.offsetLeft;
-    this.scrollLeft = track.scrollLeft;
-    this.renderer.addClass(track.parentElement, 'is-dragging');
-  }
-
-  onMouseLeave(track: HTMLElement): void {
-    this.isDragging = false;
-    this.renderer.removeClass(track.parentElement, 'is-dragging');
-  }
-
-  onMouseUp(): void {
-    this.isDragging = false;
-    this.renderer.removeClass(this.photoTrack.first.nativeElement.parentElement, 'is-dragging');
-  }
-
-  onMouseMove(event: MouseEvent): void {
-    if (!this.isDragging) return;
-    event.preventDefault();
-    const track = this.photoTrack.first.nativeElement;
-    const x = event.pageX - track.offsetLeft;
-    const walk = (x - this.startX) * 2;
-    track.scrollLeft = this.scrollLeft - walk;
-  }
-  
   // --- Lógica para reproducción de videos ---
   playVideo(clickedVideo: Video): void {
-    // Si la URL segura no ha sido creada, la crea. Si ya existe, no hace nada.
     if (!clickedVideo.safeUrl) {
       clickedVideo.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${clickedVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`);
     }
-
     this.videos.forEach(video => {
       video.isPlaying = (video === clickedVideo);
     });
   }
 
-  // --- Lógica para el modal de imagen ---
+  // ---  Lógica para el modal de imagen ---
   openImageModal(imageUrl: string): void {
-    // Solo abre el modal si no se estaba arrastrando
-    if (!this.isDragging) {
-      this.selectedImageUrl = imageUrl;
-      this.isImageModalVisible = true;
-    }
+    this.selectedImageUrl = imageUrl;
+    this.isImageModalVisible = true;
+    this.stopAutoScroll();
   }
 
   closeImageModal(): void {
     this.isImageModalVisible = false;
-    setTimeout(() => { this.selectedImageUrl = null; }, 300);
+    setTimeout(() => { 
+      this.selectedImageUrl = null; 
+      this.startAutoScroll();
+    }, 300);
+  }
+
+  pauseAutoScroll() {
+    this.stopAutoScroll();
+  }
+
+  resumeAutoScroll() {
+    if (!this.isImageModalVisible) {
+      this.startAutoScroll();
+    }
   }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -121,5 +134,9 @@ export class StarsComponent {
     if (this.isImageModalVisible) {
       this.closeImageModal();
     }
+  }
+
+  ngOnDestroy() {
+    this.stopAutoScroll();
   }
 }

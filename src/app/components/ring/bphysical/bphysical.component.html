@@ -16,39 +16,88 @@
     </div>
 
     <!-- Layout de dos columnas -->
-    <div class="ring-main-content">
-        
-        <!-- Columna Izquierda: Feed de publicaciones -->
-        <div class="timeline-feed">
-            <div *ngFor="let group of groupedPosts">
-                <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
-                <div class="timeline-post" *ngFor="let post of group.posts">
-                    <div class="post-image">
-                        <img [src]="post.imageUrl" [alt]="post.altText">
-                    </div>
-                    <div class="post-content">
-                        <p>{{ post.description }}</p>
+    <div class="ring-main-content" style="position: relative;">
+        <!-- Decoración lateral izquierda -->
+        <div class="timeline-decor">
+            <div *ngFor="let group of monthGroups" class="timeline-month-block">
+                <div class="timeline-dot month-dot" [class.current]="group.month === currentMonth">
+                    <span class="dot"></span>
+                </div>
+                <div class="timeline-cat-list">
+                    <div *ngFor="let category of group.categories" class="timeline-dot cat-dot">
+                        <span class="cat-dot-shape"></span>
                     </div>
                 </div>
             </div>
+            <div class="timeline-line"></div>
         </div>
 
+        <!-- Feed de publicaciones por mes y categorías -->
+        <div class="timeline-feed">
+            <div *ngFor="let group of visibleMonthGroups">
+              <h3 class="month-title" [class.current]="group.month === currentMonth">{{ group.month }}</h3>
+              <div *ngFor="let category of group.categories" class="ring-category-section">
+                <h4 class="ring-category-title">{{ category.name }}</h4>
+                <div class="ring-carousel-container">
+                  <button class="carousel-arrow left" (click)="scrollCarousel(carousel, 'left')" aria-label="Anterior">
+                    <span class="material-icons">chevron_left</span>
+                  </button>
+                  <div class="ring-carousel-images" #carousel>
+                    <div class="carousel-img-desc" *ngFor="let img of category.images">
+                      <img
+                        [src]="img.url"
+                        [alt]="img.titulo"
+                        class="ring-carousel-img-large"
+                        (click)="openImageModal(img)"
+                        style="cursor: pointer;"
+                      />
+                      <div class="img-title"><b>{{ img.titulo }}</b></div>
+                      <div class="img-desc">{{ img.descripcion }}</div>
+                    </div>
+                  </div>
+                  <button class="carousel-arrow right" (click)="scrollCarousel(carousel, 'right')" aria-label="Siguiente">
+                    <span class="material-icons">chevron_right</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
 
 <!-- Modal para "Detalle por Incapacidad" -->
 <div class="info-modal-backdrop" *ngIf="isInfoModalVisible" (click)="closeInfoModal()">
-    <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-            <h3>Detalle por Incapacidad</h3>
-            <button class="close-button" (click)="closeInfoModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="./assets/images/ring/Bphysical/ancheta3.png" alt="Icono de Incapacidad">
-            <p>
-                Aplica para todos los integrantes con incapacidad igual o superior a 30 días.
-                El área de cultura y desarrollo realiza la entrega con el soporte correspondiente.
-            </p>
-        </div>
+  <div class="info-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closeInfoModal()" 
+            style="position: absolute; right: 8px; top: 8px; font-size: 2rem; background: none; border: none; cursor: pointer;">
+      &times;
+    </button>
+    <div class="modal-body" style="text-align: center; padding: 32px 24px 24px 24px;">
+      <span class="material-icons" style="font-size: 3rem; color: #1976d2; margin-bottom: 16px; display: block;">
+        shopping_cart
+      </span>
+      <h3 class="modal-title" style="margin: 0 0 16px 0;">Detalle por Incapacidad</h3>
+      <p class="modal-text" style="margin: 0;">
+        Este beneficio corresponde a incapacidades médicas reconocidas por la empresa. 
+        Para más información, consulta con talento humano.
+      </p>
     </div>
+  </div>
+</div>
+
+<!-- Modal para visualizar imagen -->
+<div class="info-modal-backdrop" *ngIf="selectedImage" (click)="closeImageModal()">
+  <div class="image-modal-container" [class.is-closing]="isModalClosing" (click)="$event.stopPropagation()">
+    <div class="modal-body">
+      <img [src]="selectedImage.url" [alt]="selectedImage.titulo" class="modal-img-large">
+      <a *ngIf="selectedImage.urlDestino"
+         [href]="selectedImage.urlDestino"
+         target="_blank"
+         rel="noopener"
+         class="img-link"
+         (click)="$event.stopPropagation()">
+        Click aqui para ir
+      </a>
+    </div>
+  </div>
 </div>
