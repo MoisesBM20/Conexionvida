@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Importa el Router para la navegación
+import { Router ,} from '@angular/router'; // Importa el Router para la navegación
 
 @Component({
   selector: 'app-hero',

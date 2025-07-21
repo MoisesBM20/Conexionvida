@@ -126,6 +126,7 @@ export class AttractionComponent implements OnInit {
 
   ngOnInit(): void {
     // Inicializa la vista con la primera vacante seleccionada por defecto
+    
     if (this.vacancies.length > 0) {
       this.selectVacancy(this.vacancies[0]);
     }

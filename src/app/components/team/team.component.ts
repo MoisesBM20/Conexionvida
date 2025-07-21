@@ -1,9 +1,9 @@
 // ... existing imports ...
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-pruebas',
+  selector: 'app-team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
   animations: [
@@ -18,8 +18,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ])
   ]
 })
-export class TeamComponent {
+export class TeamComponent implements OnInit, AfterViewInit {
   selectedMember: string | null = null;
+  loading: boolean = true; // Estado de carga inicial
 
   memberInfo: any = {
     'director-general': {
@@ -79,7 +80,7 @@ export class TeamComponent {
       description: 'Implementa y evalúa programas de bienestar y desarrollo.'
     },
     'aprendiz-bienestar': {
-      name: 'Aprendiz',
+      name: 'Claudia V. Casamachin',
       role: 'Aprendiz de Bienestar y Desarrollo',
       email: 'cvcasamachin@gane.com.co',
       phone: '',
@@ -87,6 +88,64 @@ export class TeamComponent {
       description: 'Apoya en las actividades de bienestar y desarrollo organizacional.'
     }
   };
+
+  private totalImages = 0;
+  private loadedImages = 0;
+  private logoAnimationCount = 0; // <--- Cambia aquí
+
+  @ViewChild('logoAnim', { static: false }) logoAnimRef!: ElementRef;
+
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
+
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    // 1. Espera a que el logo haga dos animaciones completas
+    setTimeout(() => {
+      const logoEl = this.el.nativeElement.querySelector('.official-logo-animation');
+      if (logoEl) {
+        this.renderer.listen(logoEl, 'animationiteration', () => {
+          this.logoAnimationCount++;
+          this.tryHideLoading();
+        });
+      }
+    });
+
+    // 2. Espera a que las imágenes carguen
+    setTimeout(() => {
+      const images: NodeListOf<HTMLImageElement> = this.el.nativeElement.querySelectorAll('.org-container img, .info-panel img');
+      this.totalImages = images.length;
+      this.loadedImages = 0;
+
+      images.forEach(img => {
+        if (img.complete) {
+          this.onImageLoad();
+        } else {
+          this.renderer.listen(img, 'load', () => this.onImageLoad());
+          this.renderer.listen(img, 'error', () => this.onImageLoad());
+        }
+      });
+
+      if (this.totalImages === 0) {
+        this.loadedImages = 1;
+        this.tryHideLoading();
+      }
+    });
+  }
+
+  onImageLoad() {
+    this.loadedImages++;
+    this.tryHideLoading();
+  }
+
+  tryHideLoading() {
+    // Ahora requiere dos ciclos de animación del logo
+    if (this.logoAnimationCount >= 2 && this.loadedImages >= this.totalImages) {
+      setTimeout(() => {
+        this.loading = false;
+      }, 100); // Pequeño delay para suavidad
+    }
+  }
 
   selectMember(memberId: string) {
     this.selectedMember = memberId;

@@ -13,11 +13,47 @@
     padding: 40px 20px;
     margin-bottom: 20px;
     background: linear-gradient(to right, #f4f7fc, #e5f0ff);
-    border-radius: 0 0 20px 20px;
-}
+    border-radius: 0 0 0x 20px;
+    background-image: url('/assets/images/Convenios/Convenios.jpg');
+    background-size: cover;         // Ajusta la imagen para cubrir todo el header
+    background-position: center;    // Centra la imagen
+    background-repeat: no-repeat;   // No repite la imagen
+    color: white;                   // Cambia el color del texto si es necesario
+    padding: 40px 20px;             // Ajusta el padding según tu diseño
+    text-align: center;             // Centra el texto
+    // Puedes agregar un overlay si el texto no se ve bien:
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        border-radius: 0 0 20px 20px;
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    @media (max-width: 1400px) {
+        min-height: 180px;
+        padding: 30px 10px;
+        background-size: cover;
+    }
+
+    @media (max-width: 1400px) {
+        min-height: 120px;
+        padding: 10px 5px;
+        background-size: contain;
+        background-position: center;
+    }
+  }
 
 .team-header h1 {
-    color: #005A9C;
+    color: white;
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 15px;
@@ -26,7 +62,7 @@
 }
 
 .team-header p {
-    color: #5a738e;
+    color: white;
     font-size: 1.1rem;
     max-width: 600px;
     margin: 0 auto;

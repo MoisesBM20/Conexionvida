@@ -1,13 +1,22 @@
 <body>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Overlay de carga -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="official-logo-animation"></div>
+  </div>
+
+  <!-- Header siempre visible -->
   <div class="team-header">
       <h1>ORGANIGRAMA</h1>
       <p>Buscamos el mejor talento para la organización</p>
   </div>
+  
+  <!-- Contenido principal -->
   <div class="team-page-container">
       <div class="org-main-layout">
           <!-- Organigrama -->
-          <div class="org-container">
+          <div class="org-container" [class.loading-blur]="loading">
               <!-- SVG para dibujar las líneas conectoras -->
               <svg class="org-lines" viewBox="0 0 1100 850" preserveAspectRatio="none">
                   <!-- Director a Jefe -->
@@ -117,12 +126,12 @@
                   [class.selected]="selectedMember === 'aprendiz-bienestar'"
               >
                   <img src="./assets/images/team/Claudia.png" alt="personaje" class="photo">
-                  <h3 class="name">Aprendiz</h3>
+                  <h3 class="name">Claudia V. Casamachin</h3>
                   <p class="role">Aprendiz de Bienestar y Desarrollo</p>
               </div>
           </div>
 
-          <!-- Panel de información -->
+          <!-- Panel de información (siempre visible) -->
           <div class="info-panel" [@panelAnimation]>
               <ng-container *ngIf="selectedMember; else generalInfo">
                   <img 

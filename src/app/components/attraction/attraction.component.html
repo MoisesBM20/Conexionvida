@@ -54,8 +54,10 @@
         </div>
         
         <div class="detail-actions">
-          <a [href]="'mailto:' + selectedVacancy.contactEmail + '?subject=Aplicación a la vacante: ' + selectedVacancy.title" class="action-button primary">Postularse</a>
-          <button type="button" class="action-button secondary" (click)="openImageModal()">Ver Volante</button>
+          <button type="button" class="action-button primary" (click)="openImageModal()">Postularse</button>
+
+          <!--<a [href]="'mailto:' + selectedVacancy.contactEmail + '?subject=Aplicación a la vacante: ' + selectedVacancy.title" class="action-button primary">Postularse</a>-->
+          <!--<button type="button" class="action-button secondary" (click)="openImageModal()">Ver Volante</button>-->
         </div>
   
         <div class="vacancy-detail-layout">
@@ -77,7 +79,7 @@
       </div>
   
       <!-- Detalle del Período de Promoción Seleccionado -->
-      <div class="promotion-detail-view" *ngIf="activeView === 'promotions' && selectedPromotionPeriod">
+      <div class="promotion-detail- " *ngIf="activeView === 'promotions' && selectedPromotionPeriod">
           <h2 class="promo-congrats">¡Felicidades a los promovidos de la {{ selectedPromotionPeriod.periodName }}!</h2>
           <!-- Muestra la imagen general para el período quincenal -->
           <img [src]="selectedPromotionPeriod.periodImageUrl" [alt]="'Promovidos de ' + selectedPromotionPeriod.periodName" class="promo-period-image">

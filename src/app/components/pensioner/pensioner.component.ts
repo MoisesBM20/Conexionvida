@@ -38,6 +38,7 @@ export class PensionerComponent implements OnInit {
   selectedPensioner: Pensioner | null = null;
   isModalClosing = false;
 
+  
   pensioners: Pensioner[] = [
     {
       id: 1,
@@ -99,8 +100,8 @@ export class PensionerComponent implements OnInit {
   ];
 
   galleryImages: GalleryImage[] = [
-    { id: 1, url: 'assets/images/Pensioner/pensioner1.jpg', alt: 'Foto del evento 1' },
-    { id: 2, url: 'https://placehold.co/800x600/e74c3c/ffffff?text=Evento+2', alt: 'Foto del evento 2' },
+    { id: 1, url: 'assets/images/Pensioner/BannerPensioner.jpg', alt: 'Foto del evento 1' },
+    { id: 2, url: 'assets/images/Pensioner/pensioner1.jpg', alt: 'Foto del evento 2' },
     { id: 3, url: 'https://placehold.co/800x600/2ecc71/ffffff?text=Evento+3', alt: 'Foto del evento 3' },
     { id: 4, url: 'https://placehold.co/800x600/f1c40f/ffffff?text=Evento+4', alt: 'Foto del evento 4' },
     { id: 5, url: 'https://placehold.co/800x600/9b59b6/ffffff?text=Evento+5', alt: 'Foto del evento 5' },

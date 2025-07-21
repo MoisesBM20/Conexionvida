@@ -242,3 +242,16 @@
   color: #6c757d;
   text-align: left;
 }
+
+/* --- Responsive: solo recorta el buscador en pantallas pequeñas --- */
+@media (max-width: 1400px) {
+  .search-input {
+    width: 250px;
+    min-width: 80px;
+    font-size: 0.95rem;
+    padding: 8px 35px 8px 12px;
+  }
+  .left-section {
+    gap: 1rem;
+  }
+}

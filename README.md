@@ -42,7 +42,7 @@ Conexionvida/
 │   │   │   ├── pensioner/      # Sección Pensionados
 │   │   │   ├── pruebas/        # Pruebas y test
 │   │   │   ├── ring/           # Bienestar (físico, mental, etc.)
-│   │   │   ├── stars/          # Elementos visuales
+│   │   │   ├── stars/          # Noche de estrellas
 │   │   │   └── team/           # Equipo de trabajo
 │   ├── assets/
 │   │   └── images/             # Imágenes organizadas por categorías
