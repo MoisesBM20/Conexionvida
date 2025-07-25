@@ -38,12 +38,6 @@
   .logo { height: 84px; }
 }
 
-.search-section {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
 .search-input {
   border: 1px solid #dfe1e5;
   border-radius: 24px;
@@ -53,11 +47,6 @@
   background-color: #f1f3f4;
   transition: all 0.3s ease;
   &::placeholder { color: #5f6368; }
-  &:focus {
-    outline: none;
-    background-color: #fff;
-    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
-  }
 }
 
 .search-button {
@@ -98,7 +87,7 @@
 }
 
 .navigation-section > ul > li > a {
-  text-decoration: rgb(0, 0, 0);
+  text-decoration: none; /* Changed from rgb(0,0,0) to none for standard practice */
   color: rgb(0, 90, 156);
   font-weight: 700;
   font-size: 1.05rem;
@@ -115,64 +104,62 @@
     border-bottom-color: var(--primary-blue);
   }
 }
-        /* ---  MECANISMO DE LA LISTA DESPLEGABLE --- */
+/* --- MECANISMO DE LA LISTA DESPLEGABLE --- */
 
-        /* 1. El contenedor del elemento del menú debe tener posición relativa */
-        .dropdown {
-            position: relative;
-        }
-        
-        /* 2. El menú desplegable se posiciona de forma absoluta respecto a su padre */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            z-index: 1000;
-            margin-top: 10px;
-            min-width: 300px;
-            padding: 0.75rem;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 12px 35px rgba(177, 177, 177, 0.3);
+/* 1. El contenedor del elemento del menú debe tener posición relativa */
+.dropdown {
+    position: relative;
+}
 
+/* 2. El menú desplegable se posiciona de forma absoluta respecto a su padre */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%; /* Centered horizontally relative to parent */
+    transform: translateX(-50%) translateY(10px); /* Adjust for centering and initial slide */
+    z-index: 1000;
+    margin-top: 10px;
+    min-width: 300px;
+    padding: 0.75rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(177, 177, 177, 0.3);
 
+    /* 3. Por defecto, el menú está oculto y movido para la animación */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
 
-            /* 3. Por defecto, el menú está oculto y movido para la animación */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-50%) translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        }
-        
-        /* 4. Al pasar el cursor sobre .dropdown, se muestra el .dropdown-menu */
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        /* Estilos para la flecha que gira */
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-        }
+/* 4. Al pasar el cursor sobre .dropdown, se muestra el .dropdown-menu */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
 
-        .dropdown:hover .dropdown-icon {
-            transform: rotate(180deg);
-        }
+/* Estilos para la flecha que gira */
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-icon {
+    transform: rotate(180deg);
+}
 
 
-        /* --- ALINEACIÓN DE ÍTEMS DENTRO DEL MENÚ (CON GRID) --- */
-        
-        .dropdown-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0rem;
-        }
+/* --- ALINEACIÓN DE ÍTEMS DENTRO DEL MENÚ (CON GRID) --- */
 
-/* --- Bloque de código a MODIFICAR --- */
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+}
+
+/* --- Bloque de código a MODIFICAR para centrado --- */
 
 .dropdown-menu a {
   --menu-item-gap: 4.3rem; /* <-- Define el gap como una variable */
@@ -196,26 +183,24 @@
   top: 25%;
   height: 50%;
   left: 80px; /* Pegada justo al borde del ícono */
-  
-  /* La posición ahora se calcula automáticamente usando la variable */
 }
 
-        .dropdown-menu a:hover {
-            background-color: #f0f4f8;
-        }
+.dropdown-menu a:hover {
+    background-color: #f0f4f8;
+}
 
-        .item-icon {
-          /* Las propiedades originales de centrado ya están perfectas */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0.6rem 0.001rem;
-      }
-        .item-icon svg {
-          width: 24px;
-          height: 24px;
-          color: #0d6efd;
-      }
+.item-icon {
+  /* Las propiedades originales de centrado ya están perfectas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.001rem;
+}
+.item-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #0d6efd;
+}
 /* --- Estilos para el contenedor de texto --- */
 .item-text {
   display: flex;
@@ -232,7 +217,6 @@
   font-weight: 600;
   color: #212529;
   text-align: left;
-  /* margin-bottom: 4px; */
 }
 
 
@@ -254,4 +238,145 @@
   .left-section {
     gap: 1rem;
   }
+}
+
+
+/* --- Buscador--- */
+.search-section {
+  position: relative; /* Asegura que los hijos con position: absolute se posicionen en relación a este */
+  display: block; /* Ensure full control over child positioning */
+  width: fit-content; /* Wrap tightly around input */
+}
+
+.search-input {
+  width: 300px;
+  padding: 0.75rem 3rem 0.75rem 1rem; /* Extra right padding for buttons */
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.clear-button {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.clear-button:hover {
+  color: #1f2937;
+}
+
+.search-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease-in-out;
+}
+
+.search-button:hover {
+  color: #3b82f6;
+}
+
+/* --- MODIFICACIONES PARA ALINEAR EL CONTENIDO DE search-results CON LA BARRA DE BÚSQUEDA --- */
+.search-results {
+  position: absolute;
+  top: 100%; /* Posiciona el borde superior justo debajo del elemento padre */
+  left: 0; /* Alinea con el borde izquierdo de su padre (.search-section) */
+  width: 100%; /* Toma el ancho completo de su padre (.search-section) */
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transform: translateY(0); /* Solo transformaciones verticales para la animación */
+  opacity: 1;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  /* text-align: center; REMOVIDO de aquí, ya que los hijos gestionarán su propia alineación */
+}
+
+.search-results:not(:empty) {
+  animation: slideIn 0.2s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Solo transformación vertical */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Solo transformación vertical */
+  }
+}
+
+.search-results h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center; /* Centra el título de los resultados */
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* display: inline-block; REMOVIDO, ya que ul tomará el ancho completo del padre */
+  text-align: left; /* Mantiene el texto de los elementos de la lista alineado a la izquierda */
+}
+
+.search-results li.clickable {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: left; /* Mantiene el texto dentro del li alineado a la izquierda */
+}
+
+.search-results li.clickable:hover {
+  background-color: #f0f4f8;
+}
+
+.search-results a {
+  text-decoration: none;
+  color: #3b82f6;
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+}
+
+.search-results .no-results {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.search-results .no-results p {
+  margin: 0;
 }

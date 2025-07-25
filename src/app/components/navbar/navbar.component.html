@@ -1,21 +1,44 @@
 <header class="navbar-container">
     <div class="left-section">
         <a href="#" class="logo-link" aria-label="Ir a la página de inicio">
-        <div class="logo-section">
-            <img src="./assets/images/logo.png" alt="Gane Logo" class="logo" />
-        </div>
-    </a>
+            <div class="logo-section">
+                <img src="./assets/images/logo.png" alt="Gane Logo" class="logo" />
+            </div>
+        </a>
         <div class="search-section">
-            <input class="search-input" type="text" placeholder="Buscar..." />
-            <button class="search-button" type="button" aria-label="Buscar">
+            <input
+                class="search-input"
+                type="text"
+                placeholder="Buscar..."
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="onSearch()"
+                (keyup.enter)="onSearch()"
+                aria-label="Buscar en la página"
+            />
+            <button class="search-button" type="button" (click)="onSearch()" aria-label="Buscar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-            </button>
+            </button> 
+            <button class="clear-button" *ngIf="searchQuery" (click)="clearSearch()" aria-label="Limpiar búsqueda">X</button>
+            
+            <!-- El div 'search-results' ahora es un hijo directo de 'search-section' -->
+            <div class="search-results" *ngIf="searchQuery">
+                <div *ngIf="filteredItems.length > 0">
+                    <h3>Resultados de la búsqueda:</h3>
+                    <ul>
+                        <li *ngFor="let item of filteredItems" (click)="navigateTo(item)" class="clickable" tabindex="0" (keyup.enter)="navigateTo(item)">
+                            <a [href]="item.isExternal ? item.url : null" [routerLink]="!item.isExternal ? item.url : null">{{ item.text }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="filteredItems.length === 0" class="no-results">
+                    <p>No se encontraron resultados para "{{ searchQuery }}".</p>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <nav class="navigation-section" [class.open]="menuOpen">
         <ul>
@@ -36,7 +59,7 @@
                                         <rect x="3" y="2" width="14" height="20" rx="2"/>
                                         <path d="M21 7v10"/>
                                         <circle cx="7" cy="12" r="1"/>
-                                      </svg>
+                                    </svg>
                                 </span>
                                 <span class="item-text">
                                     <span class="item-title">Talento Gane</span>
@@ -82,5 +105,4 @@
             </li>
         </ul>
     </nav>
-    
 </header>

@@ -20,6 +20,8 @@ import { BEducationalComponent } from './components/ring/beducational/beducation
 import { BFinancialComponent } from './components/ring/bfinancial/bfinancial.component';
 import { PruebasComponent } from './components/pruebas/pruebas.component';
 
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { PruebasComponent } from './components/pruebas/pruebas.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
