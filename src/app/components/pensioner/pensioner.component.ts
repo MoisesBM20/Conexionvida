@@ -102,10 +102,11 @@ export class PensionerComponent implements OnInit {
   galleryImages: GalleryImage[] = [
     { id: 1, url: 'assets/images/Pensioner/BannerPensioner.jpg', alt: 'Foto del evento 1' },
     { id: 2, url: 'assets/images/Pensioner/pensioner1.jpg', alt: 'Foto del evento 2' },
-    { id: 3, url: 'https://placehold.co/800x600/2ecc71/ffffff?text=Evento+3', alt: 'Foto del evento 3' },
-    { id: 4, url: 'https://placehold.co/800x600/f1c40f/ffffff?text=Evento+4', alt: 'Foto del evento 4' },
-    { id: 5, url: 'https://placehold.co/800x600/9b59b6/ffffff?text=Evento+5', alt: 'Foto del evento 5' },
-    { id: 6, url: 'https://placehold.co/800x600/1abc9c/ffffff?text=Evento+6', alt: 'Foto del evento 6' },
+    { id: 3, url: 'assets/images/Pensioner/pen1.jpeg', alt: 'Foto del evento 3' },
+    { id: 4, url: 'assets/images/Pensioner/pen2.png', alt: 'Foto del evento 4' },
+    { id: 5, url: 'assets/images/Pensioner/pen3.jpeg', alt: 'Foto del evento 5' },
+    { id: 6, url: 'assets/images/Pensioner/pen4.jpeg', alt: 'Foto del evento 6' },
+    { id: 6, url: 'assets/images/Pensioner/pen5.jpeg', alt: 'Foto del evento 6' },
   ];
   
   selectedGalleryImage: GalleryImage | null = null;
