@@ -111,7 +111,7 @@ export class NavbarComponent implements AfterViewInit {
       } else {
         this.router.navigateByUrl(item.url);
       }
-      this.filteredItems = []; // Oculta los resultados después de navegar
+      this.filteredItems = []; // Oculta los resusltados después de navegar
       this.searchQuery = ''; // También limpia la búsqueda al navegar para resetear completamente
     }
   }

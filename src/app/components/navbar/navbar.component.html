@@ -23,7 +23,7 @@
             </button> 
             <button class="clear-button" *ngIf="searchQuery" (click)="clearSearch()" aria-label="Limpiar búsqueda">X</button>
             
-            <!-- El div 'search-results' ahora es un hijo directo de 'search-section' -->
+            <!-- El div 'search-results' ahora es un shijo directo de 'search-section' -->
             <div class="search-results" *ngIf="searchQuery">
                 <div *ngIf="filteredItems.length > 0">
                     <h3>Resultados de la búsqueda:</h3>
