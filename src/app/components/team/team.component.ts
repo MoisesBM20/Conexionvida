@@ -72,7 +72,7 @@ export class TeamComponent implements OnInit, AfterViewInit {
       description: 'Analiza y ejecuta procesos de selección y reclutamiento.'
     },
     'analista-bienestar': {
-      name: 'Yecid Ortiz Hernandez',
+      name: 'Yesid Ortiz Hernandez',
       role: 'Analista de Bienestar y Desarrollo',
       email: 'yortiz@gane.com.co',
       phone: '+57 317 427 6365',
