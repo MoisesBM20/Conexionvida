@@ -93,7 +93,6 @@ export class BEducationalComponent {
 
   benefitButtons: BenefitButton[] = [
     { icon: 'school', text: 'Formación y/o Capacitación', modalData: { title: 'Formación y Capacitación', text: 'Accede a nuestro plan anual de formación con cursos, talleres y diplomados para potenciar tus habilidades técnicas y blandas.', icon: 'school' }, action: (data) => this.openInfoModal(data!) },
-    { icon: 'stairs', text: 'Escala Salarial', modalData: { title: 'Escala Salarial', text: 'Conoce nuestra estructura de escala salarial, diseñada para promover el crecimiento y reconocer tu desarrollo profesional dentro de la compañía.', icon: 'stairs' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'cast_for_education', text: 'Apoyos Educativos', modalData: { title: 'Apoyos Educativos', text: 'Ofrecemos auxilios económicos para matrículas de pregrado, posgrado e idiomas para ti y tus hijos.', icon: 'cast_for_education' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'military_tech', text: 'Bono Graduando', modalData: { title: 'Bono Graduando', text: '¡Celebramos tus logros! Recibe un bono de reconocimiento al graduarte de tu programa técnico, tecnológico o profesional.', icon: 'military_tech' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'add_circle', text: 'Más Convenios', action: () => this.navigateTo('/agreement') }

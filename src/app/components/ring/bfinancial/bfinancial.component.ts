@@ -104,6 +104,7 @@ export class BFinancialComponent {
   ];
 
   benefitButtons: BenefitButton[] = [
+    { icon: 'stairs', text: 'Escala Salarial', modalData: { title: 'Escala Salarial', text: 'Conoce nuestra estructura de escala salarial, diseñada para promover el crecimiento y reconocer tu desarrollo profesional dentro de la compañía.', icon: 'stairs' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'directions_car', text: 'SOAT y RTM', modalData: { title: 'SOAT y RTM', text: 'Financia el SOAT y la Revisión Tecnicomecánica de tu vehículo a través de la cooperativa con tasas de interés preferenciales.', icon: 'directions_car' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'phone_android', text: 'Celulares Corporativos', modalData: { title: 'Celulares Corporativos', text: 'Accede a planes de telefonía móvil corporativos con excelentes tarifas y beneficios para ti y tu familia.', icon: 'phone_android' }, action: (data) => this.openInfoModal(data!) },
     { icon: 'house', text: 'Asesoría en Vivienda', modalData: { title: 'Asesoría en Vivienda', text: 'Te brindamos acompañamiento y asesoría para que puedas cumplir el sueño de tener casa propia a través de nuestros convenios.', icon: 'house' }, action: (data) => this.openInfoModal(data!) },
