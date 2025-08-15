@@ -77,7 +77,7 @@ const staticItems = [
   { text: 'EDUCATIVO', url: '/beducational'}, 
   { text: 'FINANCIERO', url: '/bfinancial' }, 
   
-  //----- PENDIENTE POR REVISAsdsdsR 
+  //----- PENDIENTE POR REVISssdsfsfAsdsdsR 
   { text: 'CUMPLEAÑOS', url: '/bmental', agreementName: 'Cumpleaños' }, 
   { text: 'QUINQUENIOS', url: '/bmental', agreementName: 'Quinquenios' },
   { text: 'VACACIONES', url: '/bmental', agreementName: 'Aviatur' }, 
