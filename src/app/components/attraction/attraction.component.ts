@@ -51,7 +51,7 @@ export class AttractionComponent implements OnInit {
       location: 'Cali, Valle del Cauca',
       salary: '$1.959.000 - $2.526.000',
       postedTime: 'Publicado hoy',
-      imageUrl: './assets/images/atraccion/Vacantes/liderventas.jpeg',
+      imageUrl: './assets/images/atraccion/Vacantes/facilitador.jpeg',
       description: 'Tu función será liderar, supervisar e implementar acciones para el cumplimiento de las metas de venta establecidas para la zona, realizando acompañamiento permanente y dando oportuna respuesta a las necesidades que se presenten en la operación.',
       requirements: [
         'Técnico, tecnólogo, profesional o estudiante activo a partir de 7° semestre de carreras administrativas, de mercadeo o afines.',

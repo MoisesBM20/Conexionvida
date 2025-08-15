@@ -113,9 +113,9 @@ export class PensionerComponent implements OnInit {
 
   videos: PensionerVideo[] = [
     {
-      title: 'Homenaje a Carlos Rodríguez',
-      youtubeId: 'ajBFFbgPLsI',
-      thumbnailUrl: 'https://img.youtube.com/vi/ajBFFbgPLsI/hqdefault.jpg'
+      title: 'Video 1 de pensionados',
+      youtubeId: 'kVnhcrp3v8g',
+      thumbnailUrl: 'https://img.youtube.com/vi/kVnhcrp3v8g/hqdefault.jpg'
     }
     // Puedes agregar más videos aquí
   ];

@@ -65,13 +65,41 @@ export class NavbarComponent implements AfterViewInit {
       }
     });
 
-    const staticItems = [
-      { text: 'Portafolio de Servicios', url: '/portfolio' },
-      { text: 'Nosotros', url: '/about' },
-      { text: 'Preguntas Frecuentes', url: '/faq' },
-      { text: 'Portal Transaccional', url: '/portal', isExternal: true },
-      { text: 'Contáctanos', url: '/contact' }
-    ];
+const staticItems = [
+  { text: 'EMI', url: '/agreement', agreementName: 'EMI' },
+  { text: 'CONFANDI', url: '/agreement', agreementName: 'Comfandi' },
+  { text: 'CECEP', url: '/agreement', agreementName: 'CECEP' },
+  { text: 'UNIVERSIDAD', url: '/agreement', agreementName: 'Javeriana' }, 
+  { text: 'APOYO', url: '/agreement', agreementName: 'FNA' }, 
+
+  { text: 'FISICO', url: '/bphysical'}, 
+  { text: 'EMOCIONAL', url: '/bmental'}, 
+  { text: 'EDUCATIVO', url: '/beducational'}, 
+  { text: 'FINANCIERO', url: '/bfinancial' }, 
+  
+  //----- PENDIENTE POR REVISAR 
+  { text: 'CUMPLEAÑOS', url: '/bmental', agreementName: 'Cumpleaños' }, 
+  { text: 'QUINQUENIOS', url: '/bmental', agreementName: 'Quinquenios' },
+  { text: 'VACACIONES', url: '/bmental', agreementName: 'Aviatur' }, 
+  { text: 'MUDANZA', url: '/bmental', agreementName: 'Mudanza' }, 
+  { text: 'SUCREDITO', url: '/agreement', agreementName: 'SuCrédito' },
+  { text: 'FNA', url: '/agreement', agreementName: 'FNA' },
+  { text: 'FONDO NACIONAL DEL AHORRO', url: '/agreement', agreementName: 'FNA' },
+
+  // Palabras clave que no son convenios, se asocian a otras rutas
+  { text: 'EQUIPO', url: '/team' },
+  { text: 'ATRACCIÓN', url: '/attraction' },
+  { text: 'BIENESTAR', url: '/agreement' },
+  { text: 'TALENTO', url: '/attraction' },
+  { text: 'CRECIMIENTO', url: '/beducational' }, // Asumiendo una nueva ruta
+  { text: 'PROMOCIÓN', url: '/attraction' }, // Asumiendo una nueva ruta
+  { text: 'NOCHE', url: '/stars' }, // Redirigido a Noche de Estrellas
+  { text: 'ESTRELLAS', url: '/stars' },
+  { text: 'FAMILIAS', url: '/ganefamily' },
+  { text: 'PENSIÓN', url: '/pensioner' }, // Redirigido a Pensionados
+  { text: 'FORMACIÓN', url: '/beducational' },
+
+];
 
     staticItems.forEach(item => {
       if (!uniqueTexts.has(item.text)) {
@@ -103,16 +131,20 @@ export class NavbarComponent implements AfterViewInit {
     this.searchQuery = '';
     this.filteredItems = [];
   }
-
-  navigateTo(item: { text: string; url: string; isExternal?: boolean }) {
+navigateTo(item: { text: string; url: string; isExternal?: boolean; agreementName?: string }) {
     if (item.url) {
-      if (item.isExternal) {
-        window.location.href = item.url;
-      } else {
-        this.router.navigateByUrl(item.url);
-      }
-      this.filteredItems = []; // Oculta los resusltados después de navegar
-      this.searchQuery = ''; // También limpia la búsqueda al navegar para resetear completamente
+        if (item.isExternal) {
+            window.location.href = item.url;
+        } else {
+            // Verifica si el ítem es un convenio y navega con el queryParam
+            if (item.agreementName) {
+                this.router.navigate([item.url], { queryParams: { agreementName: item.agreementName } });
+            } else {
+                this.router.navigateByUrl(item.url);
+            }
+        }
+        this.filteredItems = []; // Oculta los resultados
+        this.searchQuery = ''; // Limpia la búsqueda
     }
-  }
+}
 }

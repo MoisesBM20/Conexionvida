@@ -18,3 +18,9 @@ export class PruebasComponent {
     this.loading = false;
   }
 }
+
+
+
+
+
+

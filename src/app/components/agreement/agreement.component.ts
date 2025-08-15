@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, Renderer2, HostListener } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Definimos una interfaz para la estructura de cada convenio
 export interface Agreement {
@@ -75,7 +76,30 @@ export class AgreementComponent implements AfterViewInit, OnDestroy {
   bienestarMentalTrack = [...this.bienestarMental, ...this.bienestarMental];
   // El financiero no se duplica porque no tiene auto-scroll
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private route: ActivatedRoute) { }
+
+ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            const agreementName = params['agreementName'];
+            if (agreementName) {
+                this.findAndOpenAgreementModal(agreementName);
+            }
+        });
+    }
+  private findAndOpenAgreementModal(name: string): void {
+        const allAgreements = [
+            ...this.bienestarFisico,
+            ...this.bienestarEducativo,
+            ...this.bienestarMental,
+            ...this.bienestarFinanciero
+        ];
+        
+        const foundAgreement = allAgreements.find(agreement => agreement.name.toLowerCase() === name.toLowerCase());
+        
+        if (foundAgreement) {
+            this.openAgreementModal(foundAgreement);
+        }
+    }
 
   ngAfterViewInit(): void {
     if (this.carouselTracks) {
